@@ -19,35 +19,35 @@ const router = createBrowserRouter([
     element: <App />,
     children: [
       {
-        path: "/",
+        index: true, // Menggunakan index agar Home menjadi rute default
         element: <Home />,
       },
       {
-        path: "/contact",
+        path: "contact",
         element: <Contact />,
       },
       {
-        path: "/skills",
+        path: "skills",
         element: <Skills />, // Add Skills route
       },
       {
-        path: "/hobbies",
+        path: "hobbies",
         element: <Hobbies />, // Add Hobbies route
       },
       {
-        path: "/projects",
+        path: "projects",
         element: <Projects />, // Add Projects route
       },
       {
-        path: "/education",
+        path: "education",
         element: <Education />, // Add Education route
       },
       {
-        path: "/testimonials",
+        path: "testimonials",
         element: <Testimonials />, // Add Testimonials route
       },
       {
-        path: "/privacy",
+        path: "privacy",
         element: <Privacy />, // Add Privacy route
       },
     ],
