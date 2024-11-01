@@ -51,7 +51,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
                 <Link to="/react-app/contact" className="block px-4 py-2 text-gray-800 hover:bg-gray-100 flex items-center" onClick={() => setIsMenuOpen(false)}>
                   <i className="fas fa-envelope mr-2"></i> Contact
                 </Link>
-                <Link to="/react-app/privacy-policy" className="block px-4 py-2 text-gray-800 hover:bg-gray-100 flex items-center" onClick={() => setIsMenuOpen(false)}>
+                <Link to="/react-app/privacy/" className="block px-4 py-2 text-gray-800 hover:bg-gray-100 flex items-center" onClick={() => setIsMenuOpen(false)}>
                   <i className="fas fa-user-secret mr-2"></i> Privacy Policy
                 </Link>
               </div>

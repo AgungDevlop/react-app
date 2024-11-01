@@ -11,6 +11,7 @@ import { Hobbies } from "./pages/Hobbies.tsx"; // Import the Hobbies component
 import { Projects } from "./pages/Projects.tsx"; // Import the Projects component
 import { Education } from "./pages/Education.tsx"; // Import the Education component
 import { Testimonials } from "./pages/Testimonials.tsx"; // Import the Testimonials component
+import Privacy from "./pages/Privacy.tsx"; // Import the Privacy component
 
 const router = createBrowserRouter([
   {
@@ -44,6 +45,10 @@ const router = createBrowserRouter([
       {
         path: "/react-app/testimonials",
         element: <Testimonials />, // Add Testimonials route
+      },
+      {
+        path: "/react-app/privacy",
+        element: <Privacy />, // Add Privacy route
       },
     ],
   },
