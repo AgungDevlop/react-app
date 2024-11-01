@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import PortfolioMenu from "../components/PortfolioMenu";
 
 export const Home = () => {
@@ -42,4 +42,3 @@ export const Home = () => {
     </div>
   );
 };
-
