@@ -1,0 +1,182 @@
+[
+    {
+        "id": 1,
+        "title": "Understanding React Hooks",
+        "content": "<p>React hooks allow you to use state and other React features without writing a class. They enable you to use state in functional components.</p>",
+        "image": "https://via.placeholder.com/400x250",
+        "author": "Jane Doe",
+        "date": "2024-01-01",
+        "slug": "understanding-react-hooks"
+    },
+    {
+        "id": 2,
+        "title": "JavaScript ES6 Features",
+        "content": "<p>ES6 introduced many features to JavaScript including let and const, arrow functions, and template literals. This article covers these features in detail.</p>",
+        "image": "https://via.placeholder.com/400x250",
+        "author": "John Smith",
+        "date": "2024-01-02",
+        "slug": "javascript-es6-features"
+    },
+    {
+        "id": 3,
+        "title": "CSS Grid Layout",
+        "content": "<p>CSS Grid is a powerful layout system that allows you to create complex responsive layouts easily. Learn how to use it effectively in your projects.</p>",
+        "image": "https://via.placeholder.com/400x250",
+        "author": "Alice Johnson",
+        "date": "2024-01-03",
+        "slug": "css-grid-layout"
+    },
+    {
+        "id": 4,
+        "title": "Node.js and Express.js",
+        "content": "<p>Node.js is a JavaScript runtime built on Chrome's V8 engine, and Express.js is a web framework for Node. This article dives into their integration.</p>",
+        "image": "https://via.placeholder.com/400x250",
+        "author": "Bob Brown",
+        "date": "2024-01-04",
+        "slug": "nodejs-expressjs"
+    },
+    {
+        "id": 5,
+        "title": "API Development with Django",
+        "content": "<p>Django is a high-level Python web framework that encourages rapid development. This guide explores how to build APIs with Django REST Framework.</p>",
+        "image": "https://via.placeholder.com/400x250",
+        "author": "Carol White",
+        "date": "2024-01-05",
+        "slug": "api-development-django"
+    },
+    {
+        "id": 6,
+        "title": "Getting Started with TypeScript",
+        "content": "<p>TypeScript is a superset of JavaScript that adds static types. Learn how to start using TypeScript in your projects for improved developer experience.</p>",
+        "image": "https://via.placeholder.com/400x250",
+        "author": "David Black",
+        "date": "2024-01-06",
+        "slug": "getting-started-typescript"
+    },
+    {
+        "id": 7,
+        "title": "Responsive Web Design Principles",
+        "content": "<p>Responsive web design is essential in today’s mobile-first world. This article discusses principles and techniques for creating responsive websites.</p>",
+        "image": "https://via.placeholder.com/400x250",
+        "author": "Emily Green",
+        "date": "2024-01-07",
+        "slug": "responsive-web-design"
+    },
+    {
+        "id": 8,
+        "title": "Exploring Web Accessibility",
+        "content": "<p>Web accessibility is about ensuring everyone can access your content. This article covers best practices for making your websites accessible.</p>",
+        "image": "https://via.placeholder.com/400x250",
+        "author": "Frank Harris",
+        "date": "2024-01-08",
+        "slug": "exploring-web-accessibility"
+    },
+    {
+        "id": 9,
+        "title": "Introduction to GraphQL",
+        "content": "<p>GraphQL is a query language for APIs and a runtime for executing those queries. Learn the benefits and how to implement GraphQL in your projects.</p>",
+        "image": "https://via.placeholder.com/400x250",
+        "author": "Grace Lee",
+        "date": "2024-01-09",
+        "slug": "introduction-graphql"
+    },
+    {
+        "id": 10,
+        "title": "Unit Testing in JavaScript",
+        "content": "<p>Unit testing is crucial for ensuring code quality. This article discusses various testing frameworks and practices for testing JavaScript applications.</p>",
+        "image": "https://via.placeholder.com/400x250",
+        "author": "Henry King",
+        "date": "2024-01-10",
+        "slug": "unit-testing-javascript"
+    },
+    {
+        "id": 11,
+        "title": "Understanding Cloud Computing",
+        "content": "<p>Cloud computing allows businesses to access computing services over the internet. This article explores different cloud models and their benefits.</p>",
+        "image": "https://via.placeholder.com/400x250",
+        "author": "Isla Wright",
+        "date": "2024-01-11",
+        "slug": "understanding-cloud-computing"
+    },
+    {
+        "id": 12,
+        "title": "Machine Learning Basics",
+        "content": "<p>Machine learning is a subset of AI focused on building systems that learn from data. This article introduces key concepts and applications.</p>",
+        "image": "https://via.placeholder.com/400x250",
+        "author": "Jack Robinson",
+        "date": "2024-01-12",
+        "slug": "machine-learning-basics"
+    },
+    {
+        "id": 13,
+        "title": "Building RESTful APIs with Flask",
+        "content": "<p>Flask is a micro web framework for Python. This guide covers how to build RESTful APIs using Flask and its extensions.</p>",
+        "image": "https://via.placeholder.com/400x250",
+        "author": "Liam Hall",
+        "date": "2024-01-13",
+        "slug": "building-restful-apis-flask"
+    },
+    {
+        "id": 14,
+        "title": "Docker for Beginners",
+        "content": "<p>Docker is a platform for developing, shipping, and running applications in containers. This article explains how to get started with Docker.</p>",
+        "image": "https://via.placeholder.com/400x250",
+        "author": "Mia Young",
+        "date": "2024-01-14",
+        "slug": "docker-for-beginners"
+    },
+    {
+        "id": 15,
+        "title": "Introduction to Swift for iOS Development",
+        "content": "<p>Swift is a powerful programming language for iOS app development. Learn the basics of Swift and how to start building iOS apps.</p>",
+        "image": "https://via.placeholder.com/400x250",
+        "author": "Noah Scott",
+        "date": "2024-01-15",
+        "slug": "introduction-swift-ios-development"
+    },
+    {
+        "id": 16,
+        "title": "Kubernetes Basics",
+        "content": "<p>Kubernetes is an open-source container orchestration platform. This article introduces the basics of Kubernetes and its architecture.</p>",
+        "image": "https://via.placeholder.com/400x250",
+        "author": "Olivia Adams",
+        "date": "2024-01-16",
+        "slug": "kubernetes-basics"
+    },
+    {
+        "id": 17,
+        "title": "Blockchain Technology Explained",
+        "content": "<p>Blockchain is a decentralized digital ledger technology. This article covers its applications beyond cryptocurrencies.</p>",
+        "image": "https://via.placeholder.com/400x250",
+        "author": "Paul Baker",
+        "date": "2024-01-17",
+        "slug": "blockchain-technology-explained"
+    },
+    {
+        "id": 18,
+        "title": "Creating Responsive Email Templates",
+        "content": "<p>Responsive email design is crucial for effective communication. This article discusses techniques for building responsive email templates.</p>",
+        "image": "https://via.placeholder.com/400x250",
+        "author": "Quinn Clark",
+        "date": "2024-01-18",
+        "slug": "creating-responsive-email-templates"
+    },
+    {
+        "id": 19,
+        "title": "Web Performance Optimization",
+        "content": "<p>Optimizing web performance is key to user experience. This article provides tips and tools for enhancing website performance.</p>",
+        "image": "https://via.placeholder.com/400x250",
+        "author": "Riley Lewis",
+        "date": "2024-01-19",
+        "slug": "web-performance-optimization"
+    },
+    {
+        "id": 20,
+        "title": "Effective Project Management Techniques",
+        "content": "<p>Project management is essential for successful project delivery. This article explores various project management methodologies and techniques.</p>",
+        "image": "https://via.placeholder.com/400x250",
+        "author": "Sophie Martinez",
+        "date": "2024-01-20",
+        "slug": "effective-project-management-techniques"
+    }
+]

@@ -1,3 +1,6 @@
+
+
+
 #root {
   max-width: 1280px;
   margin: 0 auto;
@@ -39,4 +42,39 @@
 
 .read-the-docs {
   color: #888;
+}
+
+/* Add these styles to your CSS file */
+@keyframes select-animation {
+  0% {
+    transform: scale(1);
+    opacity: 0.7;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.selected {
+  animation: select-animation 0.3s ease forwards;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 1s ease forwards;
 }
