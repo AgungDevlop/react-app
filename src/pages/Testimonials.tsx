@@ -12,6 +12,7 @@ export const Testimonials = () => {
     "Gopal: Layanan cepat dan hasil memuaskan, sangat recommended!",
   ];
 
+
   return (
     <div className="p-6 text-white">
       <h2 className="text-2xl font-bold mb-4">Testimonial</h2>
