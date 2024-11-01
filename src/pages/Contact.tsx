@@ -1,5 +1,3 @@
-import React from "react";
-
 export const Contact = () => {
   return (
     <div className="p-6 text-white">
