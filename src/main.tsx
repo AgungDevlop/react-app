@@ -15,39 +15,39 @@ import Privacy from "./pages/Privacy.tsx"; // Import the Privacy component
 
 const router = createBrowserRouter([
   {
-    path: "/react-app/",
+    path: "/",
     element: <App />,
     children: [
       {
-        path: "/react-app/",
+        path: "/",
         element: <Home />,
       },
       {
-        path: "/react-app/contact",
+        path: "/contact",
         element: <Contact />,
       },
       {
-        path: "/react-app/skills",
+        path: "/skills",
         element: <Skills />, // Add Skills route
       },
       {
-        path: "/react-app/hobbies",
+        path: "/hobbies",
         element: <Hobbies />, // Add Hobbies route
       },
       {
-        path: "/react-app/projects",
+        path: "/projects",
         element: <Projects />, // Add Projects route
       },
       {
-        path: "/react-app/education",
+        path: "/education",
         element: <Education />, // Add Education route
       },
       {
-        path: "/react-app/testimonials",
+        path: "/testimonials",
         element: <Testimonials />, // Add Testimonials route
       },
       {
-        path: "/react-app/privacy",
+        path: "/privacy",
         element: <Privacy />, // Add Privacy route
       },
     ],

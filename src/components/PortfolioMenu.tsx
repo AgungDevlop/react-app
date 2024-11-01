@@ -4,12 +4,12 @@ import { faLaptopCode, faPalette, faBriefcase, faGraduationCap, faEnvelope, faCo
 
 const PortfolioMenu = () => {
   const menuItems = [
-    { name: "Skills", icon: faLaptopCode, path: "/react-app/skills" },
-    { name: "Hobbies", icon: faPalette, path: "/react-app/hobbies" },
-    { name: "Projects", icon: faBriefcase, path: "/react-app/projects" },
-    { name: "Education", icon: faGraduationCap, path: "/react-app/education" },
-    { name: "Contact", icon: faEnvelope, path: "/react-app/contact" },
-    { name: "Testimonials", icon: faComment, path: "/react-app/testimonials" },
+    { name: "Skills", icon: faLaptopCode, path: "/skills" },
+    { name: "Hobbies", icon: faPalette, path: "/hobbies" },
+    { name: "Projects", icon: faBriefcase, path: "/projects" },
+    { name: "Education", icon: faGraduationCap, path: "/education" },
+    { name: "Contact", icon: faEnvelope, path: "/contact" },
+    { name: "Testimonials", icon: faComment, path: "/testimonials" },
   ];
 
   return (

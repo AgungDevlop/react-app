@@ -45,13 +45,13 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
             {/* Pop-up Menu with Higher z-index */}
             {isMenuOpen && (
               <div className="popup-menu absolute top-full right-0 mt-1 w-40 bg-white border border-gray-200 rounded-md shadow-lg z-50 transition-all duration-300 ease-in-out">
-                <Link to="/react-app/" className="block px-4 py-2 text-gray-800 hover:bg-gray-100 flex items-center" onClick={() => setIsMenuOpen(false)}>
+                <Link to="/" className="block px-4 py-2 text-gray-800 hover:bg-gray-100 flex items-center" onClick={() => setIsMenuOpen(false)}>
                   <i className="fas fa-home mr-2"></i> Home
                 </Link>
-                <Link to="/react-app/contact" className="block px-4 py-2 text-gray-800 hover:bg-gray-100 flex items-center" onClick={() => setIsMenuOpen(false)}>
+                <Link to="/contact" className="block px-4 py-2 text-gray-800 hover:bg-gray-100 flex items-center" onClick={() => setIsMenuOpen(false)}>
                   <i className="fas fa-envelope mr-2"></i> Contact
                 </Link>
-                <Link to="/react-app/privacy/" className="block px-4 py-2 text-gray-800 hover:bg-gray-100 flex items-center" onClick={() => setIsMenuOpen(false)}>
+                <Link to="/privacy" className="block px-4 py-2 text-gray-800 hover:bg-gray-100 flex items-center" onClick={() => setIsMenuOpen(false)}>
                   <i className="fas fa-user-secret mr-2"></i> Privacy Policy
                 </Link>
               </div>
@@ -59,13 +59,13 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
           </div>
 
           <nav className="hidden md:flex space-x-6">
-            <Link to="/react-app/" className="text-gray-100 hover:text-blue-400 flex items-center">
+            <Link to="/" className="text-gray-100 hover:text-blue-400 flex items-center">
               <i className="fas fa-home mr-2"></i> Home
             </Link>
-            <Link to="/react-app/contact" className="text-gray-100 hover:text-blue-400 flex items-center">
+            <Link to="/contact" className="text-gray-100 hover:text-blue-400 flex items-center">
               <i className="fas fa-envelope mr-2"></i> Contact
             </Link>
-            <Link to="/react-app/privacy-policy" className="text-gray-100 hover:text-blue-400 flex items-center">
+            <Link to="/privacy" className="text-gray-100 hover:text-blue-400 flex items-center">
               <i className="fas fa-user-secret mr-2"></i> Privacy Policy
             </Link>
           </nav>
