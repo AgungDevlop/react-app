@@ -1,61 +1,52 @@
 import { useEffect, useState } from 'react';
+import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar } from '@fortawesome/free-solid-svg-icons'; // Menggunakan ikon bintang
-import axios from 'axios';
 
 export const Testimonials = () => {
   const [testimonials, setTestimonials] = useState<any[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    const fetchTestimonials = async () => {
-      try {
-        const response = await axios.get('https://andre.mediafolder.my.id/Star.json');
+    axios
+      .get('https://andre.mediafolder.my.id/Star.json')
+      .then((response) => {
         setTestimonials(response.data);
-      } catch (err) {
-        setError('Gagal memuat testimonial');
-      } finally {
         setLoading(false);
-      }
-    };
-
-    fetchTestimonials();
+      })
+      .catch((error) => {
+        console.error('Error fetching data:', error);
+        setLoading(false);
+      });
   }, []);
 
   if (loading) {
     return (
-      <div className="text-center text-white p-6">
-        <h2 className="text-2xl font-bold mb-4">Memuat Testimonial...</h2>
-        <div className="spinner-border text-white" role="status">
-          <span className="sr-only">Loading...</span>
-        </div>
-      </div>
-    );
-  }
-
-  if (error) {
-    return (
-      <div className="text-center text-white p-6">
-        <h2 className="text-2xl font-bold mb-4">Terjadi kesalahan</h2>
-        <p>{error}</p>
+      <div className="flex justify-center items-center h-screen text-white">
+        <div className="spinner-border animate-spin w-16 h-16 border-4 border-t-4 border-white rounded-full"></div>
       </div>
     );
   }
 
   return (
-    <div className="p-6 text-white">
-      <h2 className="text-3xl font-extrabold mb-8 text-center">Testimonial</h2>
-      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div className="p-8 bg-gradient-to-r from-purple-500 via-pink-500 to-red-500 min-h-screen">
+      <h2 className="text-4xl font-bold text-center text-white mb-8">Testimonial</h2>
+      <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {testimonials.map((testimonial, index) => (
           <div
             key={index}
-            className="flex flex-col items-center p-6 bg-gray-800 rounded-lg shadow-lg hover:bg-gray-700 transition duration-300"
+            className="flex flex-col items-center bg-white rounded-lg p-6 shadow-lg hover:shadow-2xl transition duration-300 transform hover:scale-105"
           >
-            <FontAwesomeIcon icon={faStar} className="text-yellow-400 text-3xl mb-4" />
-            <p className="text-gray-300 text-lg italic">{testimonial.comment}</p>
-            <p className="text-gray-400 mt-4">{testimonial.nama}</p>
-            <p className="text-yellow-400 mt-2">{'★'.repeat(testimonial.jumlahstar)}</p>
+            <div className="flex items-center mb-4">
+              <FontAwesomeIcon icon={faStar} className="text-yellow-400 mr-2" />
+              <p className="text-lg font-semibold">{testimonial.nama}</p>
+            </div>
+            <p className="text-gray-700 text-center mb-4">{testimonial.comment}</p>
+            <div className="flex justify-center">
+              {'★'.repeat(testimonial.jumlahstar).split('').map((_, i) => (
+                <FontAwesomeIcon key={i} icon={faStar} className="text-yellow-400" />
+              ))}
+            </div>
           </div>
         ))}
       </div>
