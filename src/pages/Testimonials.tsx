@@ -7,7 +7,7 @@ export const Testimonials = () => {
 
   useEffect(() => {
     const fetchTestimonials = async () => {
-      const response = await fetch('data.json'); // Ganti dengan path yang sesuai
+      const response = await fetch('https://raw.githubusercontent.com/AgungDevlop/Viral/refs/heads/main/Star.json'); // Ganti dengan path yang sesuai
       const data = await response.json();
       setTestimonials(data);
     };
