@@ -65,7 +65,7 @@ export const Testimonials = () => {
         });
 
         // Add the new testimonial to the local state to reflect the change
-        setTestimonials([...testimonials, newTestimonial]);
+        setTestimonials((prevTestimonials) => [...prevTestimonials, newTestimonial]);
         alert('Testimonial successfully added!');
         setName('');
         setStars(0);
@@ -135,3 +135,4 @@ export const Testimonials = () => {
     </div>
   );
 };
+              
