@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar } from '@fortawesome/free-solid-svg-icons';
@@ -20,13 +20,14 @@ export const Testimonials = () => {
       const sha = res.data.sha;
       const content = JSON.parse(atob(res.data.content));
       setTestimonials(content);
+      return sha; // Return sha so it can be used for PUT request
     } catch (error) {
       console.error('Error fetching testimonials:', error);
     }
   };
 
-  // Call fetchTestimonials when the component mounts
-  useState(() => {
+  // Fetch the testimonials when the component mounts
+  useEffect(() => {
     fetchTestimonials();
   }, []);
 
