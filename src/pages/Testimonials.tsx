@@ -1,127 +1,137 @@
 import { useState } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faStar } from '@fortawesome/free-solid-svg-icons'; // Menggunakan ikon bintang
 import axios from 'axios';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faStar } from '@fortawesome/free-solid-svg-icons';
 
 export const Testimonials = () => {
   const [name, setName] = useState('');
-  const [stars, setStars] = useState(1);
+  const [stars, setStars] = useState(0);
   const [comment, setComment] = useState('');
-  const [message, setMessage] = useState('');
+  const [testimonials, setTestimonials] = useState<any[]>([]); // To store the fetched testimonials
 
-  // Fungsi untuk meng-handle submit
+  // Fetch existing testimonials from GitHub on component mount
+  const fetchTestimonials = async () => {
+    try {
+      const res = await axios.get('https://api.github.com/repos/AgungDevlop/Viral/contents/Star.json', {
+        headers: {
+          'Authorization': `Bearer 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`
+        }
+      });
+      const sha = res.data.sha;
+      const content = JSON.parse(atob(res.data.content));
+      setTestimonials(content);
+    } catch (error) {
+      console.error('Error fetching testimonials:', error);
+    }
+  };
+
+  // Call fetchTestimonials when the component mounts
+  useState(() => {
+    fetchTestimonials();
+  }, []);
+
+  // Function to handle testimonial submission
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
-    // Membuat objek testimonial baru
-    const newTestimonial = {
-      id: Math.random().toString(36).substr(2, 9), // Membuat ID acak
-      nama: name,
-      Star: stars,
-      comment: comment,
-    };
 
-    try {
-      // Mendapatkan data yang ada di file Star.json
-      const { data } = await axios.get('https://api.github.com/repos/AgungDevlop/Viral/contents/Star.json', {
-        headers: {
-          'Authorization': 'Bearer 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', // Ganti dengan token Anda
-        },
-      });
+    if (name && stars > 0 && comment) {
+      const newTestimonial = {
+        id: Math.random().toString(36).substr(2, 9), // Generate a random ID
+        nama: name,
+        Star: stars,
+        comment: comment,
+      };
 
-      const sha = data.sha; // Mendapatkan sha dari file
-      const content = JSON.parse(atob(data.content)); // Mendekodekan file JSON yang ada
-      content.push(newTestimonial); // Menambahkan testimonial baru
-
-      // Mengirimkan update ke file Star.json di GitHub
-      await axios.put(
-        'https://api.github.com/repos/AgungDevlop/Viral/contents/Star.json',
-        {
-          message: 'Menambahkan testimonial baru',
-          content: btoa(JSON.stringify(content, null, 2)), // Encode data JSON yang telah diperbarui
-          sha: sha, // Mengirimkan sha agar GitHub tahu file mana yang perlu diperbarui
-        },
-        {
+      try {
+        // Fetch current testimonials and push the new one
+        const res = await axios.get('https://api.github.com/repos/AgungDevlop/Viral/contents/Star.json', {
           headers: {
-            'Authorization': 'Bearer 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', // Ganti dengan token Anda
-          },
-        }
-      );
+            'Authorization': `Bearer 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`
+          }
+        });
+        const sha = res.data.sha;
+        const content = JSON.parse(atob(res.data.content));
+        content.push(newTestimonial);
 
-      setMessage('Testimonial berhasil ditambahkan!');
-    } catch (error) {
-      console.error('Error updating GitHub file', error);
-      setMessage('Terjadi kesalahan, coba lagi.');
+        // Update the JSON file on GitHub
+        await axios.put('https://api.github.com/repos/AgungDevlop/Viral/contents/Star.json', {
+          message: 'Add new star entry',
+          content: btoa(JSON.stringify(content, null, 2)),  // Base64 encode the updated content with formatting
+          sha: sha,
+        }, {
+          headers: {
+            'Authorization': `Bearer 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`
+          }
+        });
+
+        // Add the new testimonial to the local state to reflect the change
+        setTestimonials([...testimonials, newTestimonial]);
+        alert('Testimonial successfully added!');
+        setName('');
+        setStars(0);
+        setComment('');
+      } catch (error) {
+        console.error('Error submitting testimonial:', error);
+        alert('Failed to submit testimonial');
+      }
+    } else {
+      alert('Please fill all fields');
     }
-
-    // Reset form
-    setName('');
-    setStars(1);
-    setComment('');
   };
 
   return (
     <div className="p-6 text-white">
       <h2 className="text-2xl font-bold mb-4">Testimonial</h2>
-
-      {/* Form untuk input testimonial */}
-      <form onSubmit={handleSubmit} className="mb-4">
-        <div className="mb-2">
-          <label className="block text-gray-300" htmlFor="name">
-            Nama Anda
-          </label>
-          <input
-            type="text"
-            id="name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            required
-            className="w-full p-2 mt-1 bg-gray-700 text-white rounded"
-          />
-        </div>
-        <div className="mb-2">
-          <label className="block text-gray-300" htmlFor="stars">
-            Jumlah Bintang
-          </label>
-          <input
-            type="number"
-            id="stars"
+      <form onSubmit={handleSubmit} className="mb-6">
+        <input
+          type="text"
+          placeholder="Nama"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          className="w-full p-2 mb-4 rounded bg-gray-700"
+        />
+        <div className="mb-4">
+          <label className="block mb-2">Bintang</label>
+          <select
             value={stars}
-            onChange={(e) => setStars(Math.min(5, Math.max(1, Number(e.target.value))))}
-            min="1"
-            max="5"
-            required
-            className="w-full p-2 mt-1 bg-gray-700 text-white rounded"
-          />
+            onChange={(e) => setStars(Number(e.target.value))}
+            className="w-full p-2 rounded bg-gray-700"
+          >
+            <option value={0}>Pilih Jumlah Bintang</option>
+            <option value={1}>1 Bintang</option>
+            <option value={2}>2 Bintang</option>
+            <option value={3}>3 Bintang</option>
+            <option value={4}>4 Bintang</option>
+            <option value={5}>5 Bintang</option>
+          </select>
         </div>
-        <div className="mb-2">
-          <label className="block text-gray-300" htmlFor="comment">
-            Komentar Anda
-          </label>
-          <textarea
-            id="comment"
-            value={comment}
-            onChange={(e) => setComment(e.target.value)}
-            required
-            className="w-full p-2 mt-1 bg-gray-700 text-white rounded"
-          />
-        </div>
+        <textarea
+          placeholder="Komentar"
+          value={comment}
+          onChange={(e) => setComment(e.target.value)}
+          className="w-full p-2 mb-4 rounded bg-gray-700"
+        />
         <button
           type="submit"
-          className="w-full bg-blue-600 py-2 rounded text-white hover:bg-blue-700"
+          className="w-full p-2 bg-blue-500 hover:bg-blue-400 rounded"
         >
-          Kirim Testimonial
+          Kirim Testimoni
         </button>
       </form>
 
-      {message && (
-        <div className="mt-4 text-gray-300">
-          <p>{message}</p>
-        </div>
-      )}
-
-      {/* Daftar testimonial */}
-      <h3 className="text-xl font-bold mb-4">Testimoni Pengguna</h3>
+      <div className="grid grid-cols-1 gap-6">
+        {testimonials.map((testimonial, index) => (
+          <div
+            key={index}
+            className="flex items-center p-4 bg-gray-800 rounded-lg shadow-md hover:bg-gray-700 transition duration-300"
+          >
+            <FontAwesomeIcon icon={faStar} className="text-yellow-400 mr-2" />
+            <p className="text-gray-300">
+              <strong>{testimonial.nama}</strong> ({testimonial.Star} Bintang): {testimonial.comment}
+            </p>
+          </div>
+        ))}
+      </div>
     </div>
   );
 };
