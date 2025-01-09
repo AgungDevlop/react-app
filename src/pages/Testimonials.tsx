@@ -20,13 +20,12 @@ export const Testimonials = () => {
       const sha = res.data.sha;
       const content = JSON.parse(atob(res.data.content));
       setTestimonials(content);
-      return sha; // Return sha so it can be used for PUT request
     } catch (error) {
       console.error('Error fetching testimonials:', error);
     }
   };
 
-  // Fetch the testimonials when the component mounts
+  // Call fetchTestimonials when the component mounts
   useEffect(() => {
     fetchTestimonials();
   }, []);
@@ -58,7 +57,7 @@ export const Testimonials = () => {
         await axios.put('https://api.github.com/repos/AgungDevlop/Viral/contents/Star.json', {
           message: 'Add new star entry',
           content: btoa(JSON.stringify(content, null, 2)),  // Base64 encode the updated content with formatting
-          sha: sha,
+          sha: sha,  // Use the sha here
         }, {
           headers: {
             'Authorization': `Bearer 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`
