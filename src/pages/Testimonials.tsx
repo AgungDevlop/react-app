@@ -1,15 +1,20 @@
 import { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar } from '@fortawesome/free-solid-svg-icons'; // Menggunakan ikon bintang
+import axios from 'axios'; // Import axios
 
 export const Testimonials = () => {
   const [testimonials, setTestimonials] = useState<any[]>([]);
 
   useEffect(() => {
-    fetch('http://andre.mediafolder.my.id/Star.json')
-      .then((response) => response.json())
-      .then((data) => setTestimonials(data))
-      .catch((error) => console.error('Error fetching data:', error));
+    axios
+      .get('https://andre.mediafolder.my.id/Star.json') // Ganti dengan URL JSON baru
+      .then((response) => {
+        setTestimonials(response.data); // Mengatur data yang diterima ke state
+      })
+      .catch((error) => {
+        console.error('Error fetching data:', error);
+      });
   }, []);
 
   return (
