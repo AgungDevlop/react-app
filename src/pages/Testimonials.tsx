@@ -12,7 +12,7 @@ export const Testimonials = () => {
   // Fungsi untuk meng-handle submit
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     // Membuat objek testimonial baru
     const newTestimonial = {
       id: Math.random().toString(36).substr(2, 9), // Membuat ID acak
@@ -23,32 +23,33 @@ export const Testimonials = () => {
 
     try {
       // Mendapatkan data yang ada di file Star.json
-      const { data } = await axios.get('https://api.github.com/repos/AgungDevlop/Viral/contents/Star.json', {
+      const response = await axios.get('https://api.github.com/repos/AgungDevlop/Viral/contents/Star.json', {
         headers: {
-          Authorization: `token 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`
-        }
+          'Authorization': 'Bearer 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',
+        },
       });
 
-      // Decode isi file JSON yang ada
-      const jsonData = JSON.parse(atob(data.content));
+      const sha = response.data.sha; // SHA dari file yang ada
+      const content = JSON.parse(atob(response.data.content)); // Decode content JSON
 
       // Menambahkan testimonial baru ke array
-      jsonData.push(newTestimonial);
+      content.push(newTestimonial);
 
-      // Menyimpan data terbaru kembali ke GitHub
+      // Mengupdate file Star.json di GitHub
       await axios.put(
         'https://api.github.com/repos/AgungDevlop/Viral/contents/Star.json',
         {
-          message: 'Menambahkan testimonial baru',
-          content: btoa(JSON.stringify(jsonData)),
-          sha: data.sha, // sha file untuk update
+          message: 'Add new star entry',
+          content: btoa(JSON.stringify(content, null, 2)),  // Base64 encode the updated content with formatting
+          sha: sha, // SHA file untuk update
         },
         {
           headers: {
-            Authorization: `token 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`,
+            'Authorization': 'Bearer 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',
           },
         }
       );
+
       setMessage('Testimonial berhasil ditambahkan!');
     } catch (error) {
       console.error('Error updating GitHub file', error);
@@ -120,20 +121,6 @@ export const Testimonials = () => {
           <p>{message}</p>
         </div>
       )}
-
-      {/* Daftar testimonial */}
-      <h3 className="text-xl font-bold mb-4">Testimoni Pengguna</h3>
-      <div className="grid grid-cols-1 gap-6">
-        {/* Looping data testimonial yang ada */}
-        {message && (
-          <div
-            className="flex items-center p-4 bg-gray-800 rounded-lg shadow-md hover:bg-gray-700 transition duration-300"
-          >
-            <FontAwesomeIcon icon={faStar} className="text-yellow-400 mr-2" />
-            <p className="text-gray-300">{message}</p>
-          </div>
-        )}
-      </div>
     </div>
   );
 };
