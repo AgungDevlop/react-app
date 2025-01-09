@@ -1,114 +1,101 @@
-import { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faStar } from '@fortawesome/free-solid-svg-icons';
+import { faStar } from '@fortawesome/free-solid-svg-icons'; // Menggunakan ikon bintang
+import { useState } from 'react';
+import axios from 'axios';
 
 export const Testimonials = () => {
-  const [name, setName] = useState('');
-  const [stars, setStars] = useState(0);
-  const [comment, setComment] = useState('');
   const [testimonials, setTestimonials] = useState<any[]>([]);
+  const [nama, setNama] = useState('');
+  const [star, setStar] = useState(1);
+  const [comment, setComment] = useState('');
+  
+  // Mengambil data testimoni dari GitHub
+  const fetchTestimonials = async () => {
+    try {
+      const response = await axios.get('https://api.github.com/repos/AgungDevlop/Viral/contents/Star.json');
+      const fileContent = atob(response.data.content); // Decode base64
+      const data = JSON.parse(fileContent);
+      setTestimonials(data);
+    } catch (error) {
+      console.error('Error fetching data from GitHub:', error);
+    }
+  };
 
-  // Fungsi untuk menambah testimoni ke GitHub
-  const handleTestimonialSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    
-    // Generate random ID
-    const id = Math.random().toString(36).substring(7);
-
-    // Data yang akan dikirimkan
+  // Menambahkan testimonial baru dan mengupdate ke GitHub
+  const addTestimonial = async () => {
     const newTestimonial = {
-      id,
-      nama: name,
-      Star: stars,
+      id: Math.random().toString(36).substr(2, 9), // Generate Random ID
+      nama,
+      Star: star,
       comment,
     };
 
-    // Menambahkan testimoni baru ke array state
-    setTestimonials((prevTestimonials) => [...prevTestimonials, newTestimonial]);
-
-    // Mengirimkan data ke GitHub
+    const updatedTestimonials = [...testimonials, newTestimonial];
+    
     try {
-      const response = await fetch(
-        `https://api.github.com/repos/AgungDevlop/Viral/contents/Star.json`, 
+      const fileContent = JSON.stringify(updatedTestimonials, null, 2);
+      const encodedContent = btoa(fileContent); // Encode to base64
+
+      await axios.put(
+        'https://api.github.com/repos/AgungDevlop/Viral/contents/Star.json',
         {
-          method: 'GET',
+          message: 'Update Star.json with new testimonial',
+          content: encodedContent,
+          sha: response.data.sha, // File sha from GET request to identify the file
+        },
+        {
           headers: {
-            'Authorization': `token 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`,
-            'Accept': 'application/vnd.github.v3+json',
+            Authorization: `token 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`,
           },
         }
       );
-      const data = await response.json();
-      const fileContent = atob(data.content); // Decode content from base64
-      const jsonContent = JSON.parse(fileContent);
-
-      // Menambahkan data testimoni baru ke dalam file JSON
-      jsonContent.push(newTestimonial);
-
-      const updatedContent = btoa(JSON.stringify(jsonContent)); // Encode kembali ke base64
-
-      // Mengirimkan data baru ke GitHub
-      const commitResponse = await fetch(
-        `https://api.github.com/repos/AgungDevlop/Viral/contents/Star.json`, 
-        {
-          method: 'PUT',
-          headers: {
-            'Authorization': `token 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`,
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            message: "Add new testimonial",
-            content: updatedContent,
-            sha: data.sha, // SHA file yang ada sebelumnya
-          }),
-        }
-      );
-      const commitResult = await commitResponse.json();
-      if (commitResult.content) {
-        alert('Testimonial berhasil dikirim!');
-      } else {
-        alert('Gagal mengirim testimonial.');
-      }
+      // Update local state with the new testimonial
+      setTestimonials(updatedTestimonials);
     } catch (error) {
-      console.error('Error:', error);
-      alert('Terjadi kesalahan saat mengirim testimonial.');
+      console.error('Error updating data to GitHub:', error);
     }
+  };
+
+  // Handling form input changes
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    addTestimonial();
+    setNama('');
+    setStar(1);
+    setComment('');
   };
 
   return (
     <div className="p-6 text-white">
       <h2 className="text-2xl font-bold mb-4">Testimonial</h2>
       
-      <form onSubmit={handleTestimonialSubmit} className="mb-6">
+      {/* Form untuk menambah testimonial */}
+      <form onSubmit={handleSubmit} className="mb-6">
         <input
           type="text"
-          placeholder="Nama"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          className="p-2 mb-2 w-full bg-gray-800 text-white rounded-md"
-          required
+          placeholder="Nama Anda"
+          value={nama}
+          onChange={(e) => setNama(e.target.value)}
+          className="p-2 mb-2 w-full rounded bg-gray-700 text-white"
         />
-        <div className="mb-2">
-          <label className="mr-2">Bintang: </label>
+        <div className="flex mb-2">
           <input
             type="number"
+            value={star}
             min="1"
             max="5"
-            value={stars}
-            onChange={(e) => setStars(Number(e.target.value))}
-            className="p-2 w-16 bg-gray-800 text-white rounded-md"
-            required
+            onChange={(e) => setStar(parseInt(e.target.value))}
+            className="p-2 w-1/2 mr-2 rounded bg-gray-700 text-white"
+          />
+          <textarea
+            value={comment}
+            onChange={(e) => setComment(e.target.value)}
+            placeholder="Komentar Anda"
+            className="p-2 w-1/2 rounded bg-gray-700 text-white"
           />
         </div>
-        <textarea
-          placeholder="Komentar"
-          value={comment}
-          onChange={(e) => setComment(e.target.value)}
-          className="p-2 w-full bg-gray-800 text-white rounded-md"
-          required
-        />
-        <button type="submit" className="mt-4 p-2 bg-blue-500 rounded-md">
-          Kirim Testimonial
+        <button type="submit" className="p-2 bg-blue-500 rounded hover:bg-blue-600">
+          Kirim Testimoni
         </button>
       </form>
 
@@ -119,11 +106,11 @@ export const Testimonials = () => {
             className="flex items-center p-4 bg-gray-800 rounded-lg shadow-md hover:bg-gray-700 transition duration-300"
           >
             <FontAwesomeIcon icon={faStar} className="text-yellow-400 mr-2" />
-            <div>
-              <p className="text-gray-300"><strong>{testimonial.nama}</strong></p>
-              <p className="text-gray-300">{testimonial.comment}</p>
-              <p className="text-gray-300">Rating: {testimonial.Star} bintang</p>
-            </div>
+            <p className="text-gray-300">
+              <strong>{testimonial.nama}</strong> (Bintang: {testimonial.Star})
+              <br />
+              {testimonial.comment}
+            </p>
           </div>
         ))}
       </div>
