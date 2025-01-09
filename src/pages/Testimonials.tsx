@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar } from '@fortawesome/free-solid-svg-icons'; // Menggunakan ikon bintang
-import React, { useState } from 'react';
+import { useState } from 'react';
 
 export const Testimonials = () => {
   const [rating, setRating] = useState(0); // Star rating
