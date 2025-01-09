@@ -12,7 +12,7 @@ export const Testimonials = () => {
   // Fungsi untuk meng-handle submit
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
+    
     // Membuat objek testimonial baru
     const newTestimonial = {
       id: Math.random().toString(36).substr(2, 9), // Membuat ID acak
@@ -23,29 +23,27 @@ export const Testimonials = () => {
 
     try {
       // Mendapatkan data yang ada di file Star.json
-      const response = await axios.get('https://api.github.com/repos/AgungDevlop/Viral/contents/Star.json', {
+      const { data } = await axios.get('https://api.github.com/repos/AgungDevlop/Viral/contents/Star.json', {
         headers: {
-          'Authorization': 'Bearer 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',
+          'Authorization': 'Bearer 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', // Ganti dengan token Anda
         },
       });
 
-      const sha = response.data.sha; // SHA dari file yang ada
-      const content = JSON.parse(atob(response.data.content)); // Decode content JSON
+      const sha = data.sha; // Mendapatkan sha dari file
+      const content = JSON.parse(atob(data.content)); // Mendekodekan file JSON yang ada
+      content.push(newTestimonial); // Menambahkan testimonial baru
 
-      // Menambahkan testimonial baru ke array
-      content.push(newTestimonial);
-
-      // Mengupdate file Star.json di GitHub
+      // Mengirimkan update ke file Star.json di GitHub
       await axios.put(
         'https://api.github.com/repos/AgungDevlop/Viral/contents/Star.json',
         {
-          message: 'Add new star entry',
-          content: btoa(JSON.stringify(content, null, 2)),  // Base64 encode the updated content with formatting
-          sha: sha, // SHA file untuk update
+          message: 'Menambahkan testimonial baru',
+          content: btoa(JSON.stringify(content, null, 2)), // Encode data JSON yang telah diperbarui
+          sha: sha, // Mengirimkan sha agar GitHub tahu file mana yang perlu diperbarui
         },
         {
           headers: {
-            'Authorization': 'Bearer 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',
+            'Authorization': 'Bearer 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', // Ganti dengan token Anda
           },
         }
       );
@@ -121,6 +119,9 @@ export const Testimonials = () => {
           <p>{message}</p>
         </div>
       )}
+
+      {/* Daftar testimonial */}
+      <h3 className="text-xl font-bold mb-4">Testimoni Pengguna</h3>
     </div>
   );
 };
