@@ -1,18 +1,15 @@
+import { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar } from '@fortawesome/free-solid-svg-icons'; // Menggunakan ikon bintang
-import { useEffect, useState } from 'react';
 
 export const Testimonials = () => {
   const [testimonials, setTestimonials] = useState<any[]>([]);
 
   useEffect(() => {
-    const fetchTestimonials = async () => {
-      const response = await fetch('https://raw.githubusercontent.com/AgungDevlop/Viral/refs/heads/main/Star.json'); // Ganti dengan path yang sesuai
-      const data = await response.json();
-      setTestimonials(data);
-    };
-
-    fetchTestimonials();
+    fetch('https://raw.githubusercontent.com/AgungDevlop/Viral/refs/heads/main/Star.json')
+      .then((response) => response.json())
+      .then((data) => setTestimonials(data))
+      .catch((error) => console.error('Error fetching data:', error));
   }, []);
 
   return (
@@ -25,14 +22,9 @@ export const Testimonials = () => {
             className="flex items-center p-4 bg-gray-800 rounded-lg shadow-md hover:bg-gray-700 transition duration-300"
           >
             <FontAwesomeIcon icon={faStar} className="text-yellow-400 mr-2" />
-            <p className="text-gray-300">
-              <strong>{testimonial.nama}:</strong> {testimonial.comment}
-            </p>
-            <div className="ml-2 flex">
-              {Array.from({ length: testimonial.jumlahstar }).map((_, starIndex) => (
-                <FontAwesomeIcon key={starIndex} icon={faStar} className="text-yellow-400" />
-              ))}
-            </div>
+            <p className="text-gray-300">{testimonial.comment}</p>
+            <p className="text-gray-400">{testimonial.nama}</p>
+            <p className="text-gray-400">{'★'.repeat(testimonial.jumlahstar)}</p>
           </div>
         ))}
       </div>
