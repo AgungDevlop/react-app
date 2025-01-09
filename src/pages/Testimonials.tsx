@@ -6,7 +6,7 @@ export const Testimonials = () => {
   const [testimonials, setTestimonials] = useState<any[]>([]);
 
   useEffect(() => {
-    fetch('https://raw.githubusercontent.com/AgungDevlop/Viral/refs/heads/main/Star.json')
+    fetch('http://andre.mediafolder.my.id/Star.json')
       .then((response) => response.json())
       .then((data) => setTestimonials(data))
       .catch((error) => console.error('Error fetching data:', error));
