@@ -12,24 +12,27 @@ jobs:
 
     steps:
       - name: Checkout repo
-        uses: actions/checkout@v3  # Update ke versi v3
+        uses: actions/checkout@v4  # Diperbarui ke v4 (versi terbaru)
 
       - name: Setup Node
-        uses: actions/setup-node@v3  # Update ke versi v3
+        uses: actions/setup-node@v4  # Diperbarui ke v4
         with:
-          node-version: 16
+          node-version: '20'  # Diperbarui ke Node 20 (Node 16 sudah deprecated)
 
       - name: Install dependencies
-        uses: bahmutov/npm-install@v1
+        uses: bahmutov/npm-install@v1  # Versi ini masih OK, tapi pastikan kompatibel
+        with:
+          install-command: npm ci  # Menggunakan npm ci untuk instalasi lebih konsisten
 
       - name: Build project
         run: npm run build
 
       - name: Upload production-ready build files
-        uses: actions/upload-artifact@v3  # Update ke versi v3
+        uses: actions/upload-artifact@v4  # Diperbarui ke v4
         with:
           name: production-files
           path: ./dist
+          include-hidden-files: true  # Ditambahkan untuk memastikan file tersembunyi diunggah
 
   deploy:
     name: Deploy
@@ -39,16 +42,16 @@ jobs:
 
     steps:
       - name: Checkout repo
-        uses: actions/checkout@v3  # Pastikan repositori dicheckout di job deploy juga
+        uses: actions/checkout@v4  # Diperbarui ke v4
 
       - name: Download artifact
-        uses: actions/download-artifact@v3  # Update ke versi v3
+        uses: actions/download-artifact@v4  # Diperbarui ke v4
         with:
           name: production-files
           path: ./dist
 
       - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
+        uses: peaceiris/actions-gh-pages@v4  # Diperbarui ke v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./dist
