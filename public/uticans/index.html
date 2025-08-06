@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Selamat Ulang Tahun, Utii Cans!</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #ffafbd, #ffc3a0);
+            color: #333;
+            overflow-x: hidden;
+        }
+        .container {
+            text-align: center;
+            padding: 20px;
+        }
+        .header {
+            margin-top: 20px;
+            animation: fadeIn 2s ease-in;
+        }
+        .header h1 {
+            font-size: 3em;
+            color: #ff6f61;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        .header p {
+            font-size: 1.5em;
+            color: #fff;
+        }
+        .photo {
+            margin: 30px 0;
+        }
+        .photo img {
+            width: 200px;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 50%;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s;
+        }
+        .photo img:hover {
+            transform: scale(1.1);
+        }
+        .message {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .message h2 {
+            color: #ff6f61;
+        }
+        .gift-button {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #ff6f61;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 1.2em;
+            transition: background-color 0.3s;
+        }
+        .gift-button:hover {
+            background-color: #e55a50;
+        }
+        .confetti {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+        @keyframes fadeIn {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+        @media (max-width: 600px) {
+            .header h1 {
+                font-size: 2em;
+            }
+            .photo img {
+                width: 150px;
+                height: 150px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="confetti" id="confetti"></div>
+    <div class="container">
+        <div class="header">
+            <h1>Selamat Ulang Tahun, Utii Cans!</h1>
+            <p>Sebuah hari spesial dan curahan hati untukmu</p>
+        </div>
+        <div class="photo">
+            <img src="https://i.ibb.co/CpHLhCgB/Picsart-25-08-06-18-31-58-192.jpg" alt="Foto Utii">
+        </div>
+        <div class="message">
+            <h2>Untuk Utii Cans</h2>
+            <p>
+                Happy birthday, Utii Cans! 🎈 Di hari spesial ini, aku ingin jujur tentang apa yang ada di hatiku. 
+                Aku suka kamu, Utii. Pesonamu, kelembutanmu, dan caramu bikin semua orang merasa istimewa selalu bikin aku takjub. 
+                Tapi aku sadar, aku punya banyak kekurangan dan merasa terlalu sederhana, bahkan gak pantas untuk seseorang sepertimu yang begitu luar biasa. 
+                Aku pikir kita lebih baik tetap jadi sahabat, tapi aku lega banget akhirnya bisa ngungkapin perasaan ini. 
+                Semoga hari ulang tahunmu penuh dengan tawa dan kebahagiaan, dan semoga semua mimpimu jadi kenyataan!
+            </p>
+            <a href="https://link.dana.id/danakaget?c=sw3tq56zq&r=f9YiVI&orderId=20250806101214872115010300166568735199113" target="_blank" class="gift-button">Buka Hadiah</a>
+        </div>
+    </div>
+
+    <script>
+        // Confetti animation
+        function createConfetti() {
+            const confettiContainer = document.getElementById('confetti');
+            for (let i = 0; i < 100; i++) {
+                const confetti = document.createElement('div');
+                confetti.style.position = 'absolute';
+                confetti.style.width = '10px';
+                confetti.style.height = '10px';
+                confetti.style.background = `hsl(${Math.random() * 360}, 70%, 50%)`;
+                confetti.style.left = `${Math.random() * 100}vw`;
+                confetti.style.top = `${Math.random() * 100}vh`;
+                confetti.style.opacity = Math.random();
+                confetti.style.animation = `fall ${Math.random() * 5 + 5}s linear infinite`;
+                confettiContainer.appendChild(confetti);
+            }
+        }
+
+        // CSS animation for falling confetti
+        const styleSheet = document.createElement('style');
+        styleSheet.innerHTML = `
+            @keyframes fall {
+                0% { transform: translateY(-100vh); }
+                100% { transform: translateY(100vh); }
+            }
+        `;
+        document.head.appendChild(styleSheet);
+
+        createConfetti();
+    </script>
+</body>
+</html>
