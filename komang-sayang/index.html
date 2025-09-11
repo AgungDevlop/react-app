@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buat Kamu, Bebs ❤️</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- Animate.css -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    
+    <!-- SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+
+    <style>
+        :root {
+            --primary-color: #d81b60; --secondary-color: #ffb6c1;
+            --background-color: #1a0210; --text-color: #fce4ec;
+        }
+
+        body {
+            margin: 0; padding: 0; font-family: 'Montserrat', sans-serif;
+            background-color: var(--background-color); color: var(--text-color);
+            display: flex; justify-content: center; align-items: center;
+            min-height: 100vh; overflow-x: hidden;
+        }
+
+        /* --- Layar Pembuka --- */
+        #start-screen {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background-color: var(--background-color); z-index: 10000;
+            display: flex; justify-content: center; align-items: center; flex-direction: column;
+            cursor: pointer;
+        }
+        .start-text { font-family: 'Great Vibes', cursive; font-size: 2.5em; color: var(--secondary-color); text-shadow: 0 0 15px var(--primary-color); }
+        .start-instruction {
+            margin-top: 20px; font-size: 1.2em; color: #fff;
+            padding: 10px 25px; border: 1px solid var(--primary-color); border-radius: 50px;
+        }
+
+        #preloader {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background-color: var(--background-color); z-index: 9999;
+            display: none; justify-content: center; align-items: center; flex-direction: column;
+        }
+        #preloader p { font-family: 'Great Vibes', cursive; font-size: 2em; color: var(--secondary-color); }
+        .spinner {
+            border: 4px solid rgba(255, 255, 255, 0.2); border-left-color: var(--primary-color);
+            border-radius: 50%; width: 50px; height: 50px;
+            animation: spin 1s linear infinite; margin-bottom: 20px;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        #particles-js { position: fixed; width: 100%; height: 100%; top: 0; left: 0; z-index: 1; }
+
+        .container {
+            text-align: center; background: rgba(0, 0, 0, 0.4); backdrop-filter: blur(10px);
+            padding: 40px; border-radius: 25px; box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+            max-width: 550px; z-index: 2; border: 1px solid rgba(255, 255, 255, 0.2);
+            /* --- PERBAIKAN UTAMA DI SINI --- */
+            position: relative; 
+        }
+
+        /* --- KONTEN UTAMA (KEJUTAN) --- */
+        #main-content-wrapper { display: none; }
+        .title { font-family: 'Great Vibes', cursive; font-size: 3.5em; color: var(--secondary-color); text-shadow: 0 0 15px var(--primary-color); margin: 0; }
+        .subtitle { font-size: 1.3em; font-weight: 700; color: #fff; margin-top: 10px; margin-bottom: 30px; }
+        #message-container { min-height: 120px; display: flex; align-items: center; justify-content: center; }
+        .message { font-size: 1.1em; line-height: 1.7; margin: 0; --animate-duration: 1.2s; }
+        .gift-section { margin-top: 40px; display: none; }
+        .gift-container { position: relative; cursor: pointer; width: 120px; height: 105px; margin: 0 auto; transform-style: preserve-3d; transition: transform 0.5s; }
+        .gift-lid { position: absolute; width: 135px; height: 30px; background-color: var(--primary-color); top: -15px; left: -7.5px; border-radius: 5px; transform-origin: bottom center; transition: transform 1s ease-in-out; }
+        .gift-box-body { position: absolute; width: 120px; height: 90px; background-color: var(--secondary-color); bottom: 0; border-radius: 5px; }
+        .gift-ribbon { position: absolute; width: 18px; height: 90px; background-color: var(--primary-color); left: 50%; transform: translateX(-50%); bottom: 0; }
+        .gift-bow { position: absolute; width: 65px; height: 18px; background-color: var(--primary-color); top: -24px; left: 50%; transform: translateX(-50%); border-radius: 4px; }
+        .gift-bow::before, .gift-bow::after { content: ''; position: absolute; width: 25px; height: 50px; border: 12px solid var(--primary-color); border-radius: 50%; top: -38px; }
+        .gift-bow::before { left: -32px; transform: rotate(-45deg); }
+        .gift-bow::after { right: -32px; transform: rotate(45deg); }
+        .gift-container.open .gift-lid { transform: rotateX(-120deg) translateY(-35px); }
+        .action-button { background-color: var(--primary-color); color: #fff; border: none; padding: 15px 30px; font-size: 1.1em; font-weight: 700; border-radius: 50px; cursor: pointer; margin-top: 25px; transition: transform 0.3s, box-shadow 0.3s; box-shadow: 0 5px 20px rgba(216, 27, 96, 0.5); animation: pulse 2s infinite; }
+        .action-button:hover { transform: scale(1.1); box-shadow: 0 8px 30px rgba(216, 27, 96, 0.7); animation-play-state: paused; }
+        @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
+        .footer { margin-top: 30px; font-size: 1.2em; font-family: 'Great Vibes', cursive; color: var(--secondary-color); }
+
+        /* --- HALAMAN PENANTIAN --- */
+        #wait-container { display: none; }
+        .wait-title { font-family: 'Great Vibes', cursive; font-size: 3em; color: var(--secondary-color); text-shadow: 0 0 15px var(--primary-color); }
+        .wait-message { font-size: 1.2em; margin-top: 20px; }
+        .wait-date { font-size: 1.3em; font-weight: 700; color: #fff; margin-top: 30px; background: var(--primary-color); padding: 10px 20px; border-radius: 15px; }
+        #heart-icon { font-size: 3em; color: var(--primary-color); margin-top: 30px; animation: heartBeat 1.5s infinite; }
+        @keyframes heartBeat { 0%, 100% { transform: scale(1); } 10%, 30% { transform: scale(0.9); } 20%, 40%, 60% { transform: scale(1.1); } 50% { transform: scale(1.05); } }
+    </style>
+</head>
+<body>
+    <div id="start-screen">
+        <h1 class="start-text">Ada sesuatu buat kamu, beb...</h1>
+        <p class="start-instruction animate__animated animate__pulse animate__infinite">Klik di Sini Bebs 🥰</p>
+    </div>
+
+    <div id="preloader">
+        <div class="spinner"></div>
+        <p>Lagi nyiapin kadonya, tunggu ya...</p>
+    </div>
+    
+    <audio id="background-music" src="https://cdn.pixabay.com/download/audio/2022/02/18/audio_8b2489c629.mp3" loop></audio>
+    <div id="particles-js"></div>
+
+    <div id="main-content-wrapper">
+        <!-- Konten kejutan akan di-render di sini oleh JavaScript -->
+    </div>
+
+    <div class="container" id="wait-container">
+        <h1 class="wait-title">Sabar ya, bebs...</h1>
+        <p class="wait-message">Ada kejutan spesial buat kamu di sini.</p>
+        <p class="wait-date">Kadonya kebuka pas hari ulang tahun kamu ya, sayang!</p>
+        <i class="fa-solid fa-heart" id="heart-icon"></i>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script>
+        const startScreen = document.getElementById('start-screen');
+        startScreen.addEventListener('click', () => {
+            startScreen.style.display = 'none';
+            const backgroundMusic = document.getElementById('background-music');
+            backgroundMusic.volume = 0.5;
+            backgroundMusic.play().catch(e => console.error("Autoplay Error: ", e));
+            document.getElementById('preloader').style.display = 'flex';
+            checkTheDate();
+        });
+
+        function checkTheDate() {
+            const preloader = document.getElementById('preloader');
+            const mainContentWrapper = document.getElementById('main-content-wrapper');
+            const waitContainer = document.getElementById('wait-container');
+            const today = new Date();
+            const targetDay = 12;
+            const targetMonth = 8; // September
+
+            setTimeout(() => {
+                preloader.style.display = 'none';
+                if (today.getDate() === targetDay && today.getMonth() === targetMonth) {
+                    mainContentWrapper.style.display = 'block';
+                    mainContentWrapper.innerHTML = `
+                        <div class="container animate__animated animate__fadeIn">
+                            <div class="animate__animated animate__fadeInDown">
+                                <h1 class="title">Happy Birthday</h1>
+                                <h2 class="subtitle">Komang Ayu Sapitri Sayang</h2>
+                            </div>
+                            <div id="message-container"></div>
+                            <div class="gift-section animate__animated" id="gift-section">
+                                <div class="gift-container" id="gift-container">
+                                    <div class="gift-lid"><div class="gift-bow"></div></div>
+                                    <div class="gift-box-body"><div class="gift-ribbon"></div></div>
+                                </div>
+                                <button id="open-gift-btn" class="action-button">Buka Kadonya</button>
+                            </div>
+                            <div class="footer animate__animated animate__fadeInUp" style="animation-delay: 1s;">
+                                <p>Dari pacar kamu,<br>Agung Eka</p>
+                            </div>
+                        </div>`;
+                    startTheSurprise();
+                } else {
+                    waitContainer.style.display = 'block';
+                    waitContainer.classList.add('animate__animated', 'animate__zoomIn');
+                }
+            }, 3000); 
+        }
+        
+        const messages = [
+            "Happy birthday ya, sayangku...",
+            "Di hari spesial ini, aku mau bilang sesuatu buat kamu.",
+            "Aku doain kamu sehat selalu, makin bahagia, dan semua yang baik-baik datang ke kamu.",
+            "Semoga kamu nggak pernah cape buat jadi orang baik ya.",
+            "Semoga semua keinginan dan mimpi kamu tercapai tahun ini. Aamiin.",
+            "Jangan lupa senyum, karena senyum kamu itu mood booster terbaik buat aku.",
+            "Makasih ya udah jadi orang paling spesial di hidup aku. Aku sayang banget sama kamu.",
+            "Oh iya, aku ada kado kecil buat kamu..."
+        ];
+        
+        function startTheSurprise() { 
+            showMessages(); 
+        }
+
+        function sleep(ms) { return new Promise(resolve => setTimeout(resolve, ms)); }
+
+        async function showMessages() {
+            const messageContainer = document.getElementById('message-container');
+            const p = document.createElement('p');
+            p.className = 'message';
+            messageContainer.appendChild(p);
+            for (let i = 0; i < messages.length; i++) {
+                p.textContent = messages[i];
+                p.classList.remove('animate__fadeOutUp');
+                p.classList.add('animate__animated', 'animate__fadeInUp');
+                await sleep(4500);
+                if (i < messages.length - 1) {
+                    p.classList.remove('animate__fadeInUp');
+                    p.classList.add('animate__fadeOutUp');
+                    await sleep(1200);
+                }
+            }
+            revealGift();
+        }
+
+        function revealGift() {
+            document.getElementById('gift-section').style.display = 'block';
+            document.getElementById('gift-section').classList.add('animate__zoomIn');
+            setupGiftButton();
+        }
+
+        function setupGiftButton() {
+            document.getElementById('open-gift-btn').addEventListener('click', () => {
+                document.getElementById('gift-container').classList.add('open');
+                document.getElementById('open-gift-btn').style.display = 'none';
+                setTimeout(showGiftPopup, 1200);
+            });
+        }
+        
+        function showGiftPopup() {
+            Swal.fire({
+                title: 'Yeay Kadonya Kebuka!',
+                html: `Kadonya jangan diliat dari isinya ya, tapi ini tulus dari aku buat kamu jajan-jajan hehe. Semoga suka ya, bebs! <br><br><strong>Dari Agung Eka, yang sayang banget sama kamu.</strong>`,
+                icon: 'success', iconColor: '#d81b60',
+                confirmButtonText: 'Ambil Kadonya <i class="fa-solid fa-heart"></i>',
+                confirmButtonColor: '#d81b60',
+                backdrop: `rgba(0,0,0,0.4) url("https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExdGZ2dzV2bHBmOHl6bDNxbm03dDF5c2Zsc214aXB3dW13OGl6MzR4eSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/26tOZ42Mg6pbTUPHW/giphy.gif") left top no-repeat`,
+                showClass: { popup: 'animate__animated animate__heartBeat' },
+                hideClass: { popup: 'animate__animated animate__fadeOutDown' }
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // !!! JANGAN LUPA GANTI LINK DANA KAGET KAMU DI SINI !!!
+                    window.open('https://link.dana.id/kaget?c=xxxxxxxx', '_blank');
+                }
+            });
+        }
+
+        particlesJS('particles-js', { /* Konfigurasi Particles.js */ "particles":{ "number":{ "value":100, "density":{ "enable":true, "value_area":800 } }, "color":{ "value":"#ffffff" }, "shape":{ "type":"circle" }, "opacity":{ "value":0.6, "random":true }, "size":{ "value":3, "random":true }, "line_linked":{ "enable":false }, "move":{ "enable":true, "speed":1.5, "direction":"none", "random":true, "straight":false, "out_mode":"out" } }, "interactivity":{ "detect_on":"canvas", "events":{ "onhover":{ "enable":true, "mode":"bubble" }, "onclick":{ "enable":true, "mode":"push" } }, "modes":{ "bubble":{ "distance":200, "size":5, "duration":2, "opacity":8 }, "push":{ "particles_nb":4 } } }, "retina_detect":true });
+    </script>
+</body>
+</html>
