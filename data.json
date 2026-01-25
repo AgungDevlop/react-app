@@ -1,0 +1,32 @@
+[
+  {
+    "nama": "Andrian",
+    "comment": "Sangat puas dengan layanan yang diberikan, profesional dan responsif.",
+    "jumlahstar": 5
+  },
+  {
+    "nama": "Deva Widnyana",
+    "comment": "Pengalaman yang luar biasa, selalu siap membantu.",
+    "jumlahstar": 5
+  },
+  {
+    "nama": "Surya Imanuel",
+    "comment": "Kualitas kerja yang sangat baik, tidak mengecewakan!",
+    "jumlahstar": 5
+  },
+  {
+    "nama": "Wawan Setiawan",
+    "comment": "Terima kasih atas kerja sama yang baik.",
+    "jumlahstar": 4
+  },
+  {
+    "nama": "Agas",
+    "comment": "Sangat merekomendasikan, hasilnya memuaskan.",
+    "jumlahstar": 5
+  },
+  {
+    "nama": "Gopal",
+    "comment": "Layanan cepat dan hasil memuaskan, sangat recommended!",
+    "jumlahstar": 5
+  }
+]
