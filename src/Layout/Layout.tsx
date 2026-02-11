@@ -10,8 +10,7 @@ import { faDownload, faTimes } from '@fortawesome/free-solid-svg-icons';
 const BlackHole = () => {
   const diskRef = useRef<THREE.Points>(null!);
   const glowRef = useRef<THREE.Mesh>(null!);
-
-  const particlesCount = 4000;
+  const particlesCount = 2000;
   const positions = useMemo(() => {
     const pos = new Float32Array(particlesCount * 3);
     for (let i = 0; i < particlesCount; i++) {
@@ -47,21 +46,9 @@ const BlackHole = () => {
       </mesh>
       <points ref={diskRef}>
         <bufferGeometry>
-          <bufferAttribute
-            attach="attributes-position"
-            count={particlesCount}
-            array={positions}
-            itemSize={3}
-          />
+          <bufferAttribute attach="attributes-position" count={particlesCount} array={positions} itemSize={3} />
         </bufferGeometry>
-        <pointsMaterial
-          size={0.04}
-          color="#fb923c"
-          transparent
-          opacity={0.6}
-          blending={THREE.AdditiveBlending}
-          depthWrite={false}
-        />
+        <pointsMaterial size={0.03} color="#fb923c" transparent opacity={0.6} blending={THREE.AdditiveBlending} depthWrite={false} />
       </points>
     </group>
   );
@@ -69,15 +56,7 @@ const BlackHole = () => {
 
 const NebulaGalaxy = ({ position, colors, size, rotationSpeed, opacity = 0.5 }: { position: [number, number, number], colors: [string, string], size: number, rotationSpeed: number, opacity?: number }) => {
   const ref = useRef<THREE.Points>(null!);
-
-  const parameters = {
-    count: 8000,
-    radius: size,
-    branches: 4,
-    spin: 1.2,
-    randomness: 0.6,
-    randomnessPower: 2.5,
-  };
+  const parameters = { count: 4000, radius: size, branches: 4, spin: 1.2, randomness: 0.6, randomnessPower: 2.5 };
 
   const { positions, outputColors } = useMemo(() => {
     const positions = new Float32Array(parameters.count * 3);
@@ -90,7 +69,6 @@ const NebulaGalaxy = ({ position, colors, size, rotationSpeed, opacity = 0.5 }: 
       const radius = Math.random() * parameters.radius;
       const spinAngle = radius * parameters.spin;
       const branchAngle = ((i % parameters.branches) / parameters.branches) * Math.PI * 2;
-
       const randomX = Math.pow(Math.random(), parameters.randomnessPower) * (Math.random() < 0.5 ? 1 : -1) * parameters.randomness * radius;
       const randomY = Math.pow(Math.random(), parameters.randomnessPower) * (Math.random() < 0.5 ? 1 : -1) * parameters.randomness * radius;
       const randomZ = Math.pow(Math.random(), parameters.randomnessPower) * (Math.random() < 0.5 ? 1 : -1) * parameters.randomness * radius;
@@ -101,7 +79,6 @@ const NebulaGalaxy = ({ position, colors, size, rotationSpeed, opacity = 0.5 }: 
 
       const mixedColor = colorInside.clone();
       mixedColor.lerp(colorOutside, radius / parameters.radius);
-
       outputColors[i3] = mixedColor.r;
       outputColors[i3 + 1] = mixedColor.g;
       outputColors[i3 + 2] = mixedColor.b;
@@ -110,9 +87,7 @@ const NebulaGalaxy = ({ position, colors, size, rotationSpeed, opacity = 0.5 }: 
   }, [colors, size]);
 
   useFrame((state) => {
-    if (ref.current) {
-      ref.current.rotation.y = state.clock.getElapsedTime() * rotationSpeed;
-    }
+    if (ref.current) ref.current.rotation.y = state.clock.getElapsedTime() * rotationSpeed;
   });
 
   return (
@@ -122,15 +97,7 @@ const NebulaGalaxy = ({ position, colors, size, rotationSpeed, opacity = 0.5 }: 
           <bufferAttribute attach="attributes-position" count={parameters.count} array={positions} itemSize={3} />
           <bufferAttribute attach="attributes-color" count={parameters.count} array={outputColors} itemSize={3} />
         </bufferGeometry>
-        <pointsMaterial
-          size={0.08}
-          vertexColors
-          blending={THREE.AdditiveBlending}
-          depthWrite={false}
-          transparent
-          opacity={opacity}
-          sizeAttenuation={true}
-        />
+        <pointsMaterial size={0.06} vertexColors blending={THREE.AdditiveBlending} depthWrite={false} transparent opacity={opacity} sizeAttenuation={true} />
       </points>
     </group>
   );
@@ -139,10 +106,10 @@ const NebulaGalaxy = ({ position, colors, size, rotationSpeed, opacity = 0.5 }: 
 const UniverseScene = () => {
   return (
     <div className="fixed inset-0 z-0 pointer-events-none w-full h-full bg-black">
-      <Canvas dpr={[1, 2]} gl={{ antialias: false, toneMapping: THREE.ACESFilmicToneMapping }}>
+      <Canvas dpr={[1, 2]} gl={{ antialias: false, toneMapping: THREE.ACESFilmicToneMapping, powerPreference: "low-power" }}>
         <PerspectiveCamera makeDefault position={[0, 0, 10]} fov={55} />
         <color attach="background" args={['#050505']} />
-        <Stars radius={300} depth={100} count={8000} factor={4} saturation={1} fade speed={0.2} />
+        <Stars radius={300} depth={100} count={4000} factor={4} saturation={1} fade speed={0.2} />
         <BlackHole />
         <Float speed={1.5} rotationIntensity={0.2} floatIntensity={0.8}>
           <NebulaGalaxy position={[12, 5, -15]} colors={["#06b6d4", "#1e3a8a"]} size={8} rotationSpeed={0.02} opacity={0.6} />
@@ -154,7 +121,7 @@ const UniverseScene = () => {
           <NebulaGalaxy position={[-25, 0, -30]} colors={["#6366f1", "#312e81"]} size={6} rotationSpeed={0.04} opacity={0.6} />
           <NebulaGalaxy position={[5, 15, -25]} colors={["#f43f5e", "#881337"]} size={5} rotationSpeed={0.05} opacity={0.5} />
         </Float>
-        <fog attach="fog" args={['#000000', 10, 50]} />
+        <fog attach="fog" args={['#000000', 15, 60]} />
       </Canvas>
     </div>
   );
@@ -165,18 +132,16 @@ const InstallPWA = () => {
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
-    const handleBeforeInstallPrompt = (e: Event) => {
+    const handler = (e: Event) => {
       e.preventDefault();
       setDeferredPrompt(e);
       setIsVisible(true);
     };
-    window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
-    return () => {
-      window.removeEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
-    };
+    window.addEventListener('beforeinstallprompt', handler);
+    return () => window.removeEventListener('beforeinstallprompt', handler);
   }, []);
 
-  const handleInstallClick = async () => {
+  const handleInstall = async () => {
     if (deferredPrompt) {
       deferredPrompt.prompt();
       await deferredPrompt.userChoice;
@@ -185,9 +150,7 @@ const InstallPWA = () => {
     }
   };
 
-  const handleDismiss = () => {
-    setIsVisible(false);
-  };
+  const handleDismiss = () => setIsVisible(false);
 
   if (!isVisible) return null;
 
@@ -199,18 +162,10 @@ const InstallPWA = () => {
           <p className="text-slate-400 text-xs">Akses lebih cepat dari layar utama Anda.</p>
         </div>
         <div className="flex items-center gap-2">
-          <button
-            onClick={handleInstallClick}
-            className="w-10 h-10 flex items-center justify-center bg-cyan-500 text-white rounded-full hover:bg-cyan-400 transition-colors shadow-[0_0_15px_rgba(6,182,212,0.4)]"
-            aria-label="Install App"
-          >
+          <button onClick={handleInstall} className="w-10 h-10 flex items-center justify-center bg-cyan-500 text-white rounded-full hover:bg-cyan-400 transition-colors shadow-[0_0_15px_rgba(6,182,212,0.4)]" aria-label="Install App">
             <FontAwesomeIcon icon={faDownload} />
           </button>
-          <button
-            onClick={handleDismiss}
-            className="w-8 h-8 flex items-center justify-center bg-slate-700/50 text-slate-400 rounded-full hover:bg-slate-600/50 transition-colors"
-            aria-label="Dismiss"
-          >
+          <button onClick={handleDismiss} className="w-8 h-8 flex items-center justify-center bg-slate-700/50 text-slate-400 rounded-full hover:bg-slate-600/50 transition-colors" aria-label="Dismiss">
             <FontAwesomeIcon icon={faTimes} className="text-xs" />
           </button>
         </div>
@@ -225,9 +180,7 @@ const Layout = () => {
   const location = useLocation();
 
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 20);
-    };
+    const handleScroll = () => setScrolled(window.scrollY > 20);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
@@ -237,87 +190,121 @@ const Layout = () => {
     window.scrollTo(0, 0);
   }, [location]);
 
+  useEffect(() => {
+    if (isMenuOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isMenuOpen]);
+
+  useEffect(() => {
+    const handleEsc = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setIsMenuOpen(false);
+    };
+    if (isMenuOpen) window.addEventListener("keydown", handleEsc);
+    return () => window.removeEventListener("keydown", handleEsc);
+  }, [isMenuOpen]);
+
   return (
     <div className="min-h-screen bg-transparent text-slate-200 font-sans selection:bg-cyan-500 selection:text-white overflow-x-hidden relative">
+      <a href="#main-content" className="sr-only focus:not-sr-only fixed top-4 left-4 z-50 bg-cyan-600 text-white px-6 py-3 rounded-lg focus:outline-none focus:ring-4 focus:ring-cyan-400">Skip to main content</a>
+
       <UniverseScene />
-      <header
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ease-in-out px-4 md:px-0 py-4 ${scrolled ? "py-2" : "py-4"
-          }`}
-      >
-        <div className={`mx-auto max-w-5xl transition-all duration-300 ${scrolled
-          ? "bg-black/40 backdrop-blur-md border border-white/5 shadow-2xl rounded-full px-6 py-2"
-          : "bg-transparent px-6 py-4"
-          } flex justify-between items-center`}
-        >
+
+      <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ease-in-out px-4 md:px-0 py-4 ${scrolled ? "py-2" : "py-4"}`}>
+        <div className={`mx-auto max-w-5xl transition-all duration-300 ${scrolled ? "bg-black/40 backdrop-blur-md border border-white/5 shadow-2xl rounded-full px-6 py-2" : "bg-transparent px-6 py-4"} flex justify-between items-center`}>
           <Link to="/" className="text-xl md:text-2xl font-bold tracking-tighter hover:text-cyan-400 transition-colors flex items-center gap-2 group">
             <span className="bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-500 bg-clip-text text-transparent group-hover:from-cyan-300 group-hover:to-purple-400">
               AgungDev
             </span>
             <span className="w-2 h-2 rounded-full bg-cyan-500 animate-pulse shadow-[0_0_10px_#06b6d4]"></span>
           </Link>
-          <nav className="hidden md:flex space-x-8">
+
+          <nav className="hidden md:flex space-x-8" aria-label="Primary navigation">
             <NavLink to="/" icon="home" label="Home" active={location.pathname === "/"} />
             <NavLink to="/projects" icon="code" label="Projects" active={location.pathname === "/projects"} />
             <NavLink to="/contact" icon="envelope" label="Contact" active={location.pathname === "/contact"} />
           </nav>
+
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             className="md:hidden text-slate-300 hover:text-white focus:outline-none p-2"
+            aria-label={`${isMenuOpen ? "Close" : "Open"} menu`}
+            aria-expanded={isMenuOpen}
+            aria-controls="mobile-menu"
           >
             <i className={`fas ${isMenuOpen ? "fa-times" : "fa-bars"} text-xl transition-transform duration-300 ${isMenuOpen ? "rotate-90" : ""}`}></i>
           </button>
         </div>
       </header>
-      <div className={`fixed inset-0 z-40 bg-black/90 backdrop-blur-2xl transition-all duration-500 flex flex-col justify-center items-center gap-8 ${isMenuOpen ? "opacity-100 visible translate-y-0" : "opacity-0 invisible -translate-y-10"
-        }`}>
+
+      <div
+        id="mobile-menu"
+        className={`fixed inset-0 z-40 bg-black/90 backdrop-blur-2xl transition-all duration-500 flex flex-col justify-center items-center gap-8 ${isMenuOpen ? "opacity-100 visible translate-y-0" : "opacity-0 invisible -translate-y-10"}`}
+        role="dialog"
+        aria-modal="true"
+        aria-label="Site navigation"
+      >
         <MobileLink to="/" onClick={() => setIsMenuOpen(false)}>Home</MobileLink>
         <MobileLink to="/projects" onClick={() => setIsMenuOpen(false)}>Projects</MobileLink>
         <MobileLink to="/contact" onClick={() => setIsMenuOpen(false)}>Contact</MobileLink>
         <MobileLink to="/privacy" onClick={() => setIsMenuOpen(false)}>Privacy</MobileLink>
         <div className="absolute bottom-10 text-slate-500 text-sm">AgungDev Portfolio &copy; 2024</div>
       </div>
-      <main className="relative z-10 container mx-auto px-6 pt-32 pb-20 min-h-[85vh]">
+
+      <main id="main-content" role="main" className="relative z-10 container mx-auto px-6 pt-32 pb-20 min-h-[85vh]">
         <div className="animate-fade-in-up">
           <Outlet />
         </div>
       </main>
+
       <footer className="relative z-10 border-t border-white/5 bg-black/30 backdrop-blur-sm mt-auto">
         <div className="container mx-auto px-6 py-8 flex flex-col md:flex-row justify-between items-center gap-4">
           <div className="text-slate-500 text-sm">
             © 2024 <span className="text-slate-300 font-semibold">AgungDev</span>. All rights reserved.
           </div>
           <div className="flex space-x-6">
-            <SocialIcon href="#" icon="github" />
-            <SocialIcon href="#" icon="linkedin" />
-            <SocialIcon href="#" icon="instagram" />
+            <SocialIcon href="#" icon="github" label="GitHub" />
+            <SocialIcon href="#" icon="linkedin" label="LinkedIn" />
+            <SocialIcon href="#" icon="instagram" label="Instagram" />
           </div>
         </div>
       </footer>
+
       <InstallPWA />
     </div>
   );
 };
 
-const NavLink = ({ to, icon, label, active }: { to: string, icon: string, label: string, active: boolean }) => (
-  <Link to={to} className={`relative group flex items-center gap-2 text-sm font-medium transition-colors ${active ? 'text-cyan-400' : 'text-slate-400 hover:text-white'}`}>
+const NavLink = ({ to, icon, label, active }: { to: string; icon: string; label: string; active: boolean }) => (
+  <Link
+    to={to}
+    className={`relative group flex items-center gap-2 text-sm font-medium transition-colors ${active ? "text-cyan-400" : "text-slate-400 hover:text-white"}`}
+  >
     <i className={`fas fa-${icon} text-xs`}></i>
     {label}
-    <span className={`absolute -bottom-1 left-0 h-[2px] bg-cyan-400 shadow-[0_0_8px_#22d3ee] transition-all duration-300 ${active ? 'w-full' : 'w-0 group-hover:w-full'}`}></span>
+    <span className={`absolute -bottom-1 left-0 h-[2px] bg-cyan-400 shadow-[0_0_8px_#22d3ee] transition-all duration-300 ${active ? "w-full" : "w-0 group-hover:w-full"}`}></span>
   </Link>
 );
 
-const MobileLink = ({ to, children, onClick }: { to: string, children: React.ReactNode, onClick: () => void }) => (
-  <Link
-    to={to}
-    onClick={onClick}
-    className="text-3xl font-bold text-slate-300 hover:text-cyan-400 hover:scale-110 transition-all duration-300"
-  >
+const MobileLink = ({ to, children, onClick }: { to: string; children: React.ReactNode; onClick: () => void }) => (
+  <Link to={to} onClick={onClick} className="text-3xl font-bold text-slate-300 hover:text-cyan-400 hover:scale-110 transition-all duration-300">
     {children}
   </Link>
 );
 
-const SocialIcon = ({ href, icon }: { href: string, icon: string }) => (
-  <a href={href} target="_blank" rel="noreferrer" className="w-10 h-10 rounded-full bg-slate-900/80 border border-slate-800 flex items-center justify-center text-slate-400 hover:bg-cyan-500 hover:text-white hover:border-cyan-400 transition-all duration-300 hover:-translate-y-1">
+const SocialIcon = ({ href, icon, label }: { href: string; icon: string; label: string }) => (
+  <a
+    href={href}
+    target="_blank"
+    rel="noreferrer"
+    className="w-10 h-10 rounded-full bg-slate-900/80 border border-slate-800 flex items-center justify-center text-slate-400 hover:bg-cyan-500 hover:text-white hover:border-cyan-400 transition-all duration-300 hover:-translate-y-1"
+    aria-label={`Visit AgungDev on ${label}`}
+  >
     <i className={`fab fa-${icon}`}></i>
   </a>
 );

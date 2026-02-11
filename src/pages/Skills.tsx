@@ -65,14 +65,16 @@ export const Skills = () => {
   return (
     <>
       <SEO 
-        title="Skills" 
-        description="Technical Arsenal of AgungDev: React, Flutter, Kotlin, and more."
+        title="Skills | AgungDev" 
+        description="Daftar kemampuan teknis AgungDev: React, Flutter, Kotlin, Python, Database, dan Tools DevOps."
         url="https://agungwandev.com/skills"
       />
-      <div className="max-w-6xl mx-auto px-4">
-        <h2 className="text-4xl font-bold text-white text-center mb-16">Technical <span className="text-purple-500">Arsenal</span></h2>
+      <section className="max-w-6xl mx-auto px-4" aria-labelledby="skills-heading">
+        <h1 id="skills-heading" className="text-4xl font-bold text-white text-center mb-16">
+          Technical <span className="text-purple-500">Arsenal</span>
+        </h1>
         
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-16">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-16" aria-label="Highlighted Technologies">
           <SkillBadge icon={faAndroid} label="Jetpack Compose" color="text-green-400" border="border-green-500/30" />
           <SkillBadge icon={faReact} label="React Ecosystem" color="text-cyan-400" border="border-cyan-500/30" />
           <SkillBadge icon={faVuejs} label="Vue.js" color="text-emerald-400" border="border-emerald-500/30" />
@@ -86,10 +88,10 @@ export const Skills = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 gap-6">
           {skills.map((group, idx) => (
             <div key={group.cat} className="bg-black/40 backdrop-blur-md p-6 rounded-3xl border border-white/10 hover:border-purple-500/30 transition-colors duration-500">
-              <h3 className="text-lg font-bold text-white mb-6 flex items-center gap-3">
-                  <span className="w-1.5 h-6 bg-gradient-to-b from-cyan-500 to-purple-600 rounded-full"></span>
+              <h2 className="text-lg font-bold text-white mb-6 flex items-center gap-3">
+                  <span className="w-1.5 h-6 bg-gradient-to-b from-cyan-500 to-purple-600 rounded-full" aria-hidden="true"></span>
                   {group.cat}
-              </h3>
+              </h2>
               <div className="space-y-5">
                 {group.items.map((s) => (
                   <div key={s.n}>
@@ -97,7 +99,7 @@ export const Skills = () => {
                       <span className="text-slate-300">{s.n}</span>
                       <span className="text-cyan-400 font-mono">{s.p}%</span>
                     </div>
-                    <div className="h-2 bg-slate-800/80 rounded-full overflow-hidden border border-white/5 relative">
+                    <div className="h-2 bg-slate-800/80 rounded-full overflow-hidden border border-white/5 relative" role="progressbar" aria-valuenow={s.p} aria-valuemin={0} aria-valuemax={100} aria-label={`Proficiency in ${s.n}`}>
                       <div 
                         className="h-full bg-gradient-to-r from-cyan-500 via-blue-500 to-purple-600 rounded-full relative shadow-[0_0_10px_rgba(6,182,212,0.5)]"
                         style={{ 
@@ -114,14 +116,14 @@ export const Skills = () => {
             </div>
           ))}
         </div>
-      </div>
+      </section>
     </>
   );
 };
 
 const SkillBadge = ({ icon, label, color, border }: any) => (
-  <div className={`p-4 bg-black/60 rounded-2xl border ${border} flex flex-col items-center gap-3 hover:-translate-y-1 transition-transform group`}>
-    <FontAwesomeIcon icon={icon} className={`text-3xl ${color} drop-shadow-[0_0_10px_rgba(255,255,255,0.2)] group-hover:scale-110 transition-transform`} />
+  <div className={`p-4 bg-black/60 rounded-2xl border ${border} flex flex-col items-center gap-3 hover:-translate-y-1 transition-transform group`} title={label}>
+    <FontAwesomeIcon icon={icon} className={`text-3xl ${color} drop-shadow-[0_0_10px_rgba(255,255,255,0.2)] group-hover:scale-110 transition-transform`} aria-hidden="true" />
     <span className="font-bold text-slate-200 text-sm text-center">{label}</span>
   </div>
 );

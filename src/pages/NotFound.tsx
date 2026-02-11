@@ -6,10 +6,10 @@ const NotFound = () => {
     <>
       <SEO 
         title="404 Not Found" 
-        description="Halaman tidak ditemukan."
+        description="Halaman yang Anda cari tidak ditemukan atau telah dipindahkan."
         url="https://agungwandev.com/404"
       />
-      <div className="flex flex-col items-center justify-center min-h-[60vh] text-center space-y-6 px-4">
+      <section className="flex flex-col items-center justify-center min-h-[60vh] text-center space-y-6 px-4" aria-label="Page Not Found">
         <h1 className="text-6xl md:text-8xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-orange-500">
           404
         </h1>
@@ -19,10 +19,11 @@ const NotFound = () => {
         <Link 
           to="/" 
           className="px-6 py-2 bg-slate-800 hover:bg-cyan-600 text-white rounded-lg transition-colors border border-white/10"
+          aria-label="Return to Homepage"
         >
           Kembali ke Home
         </Link>
-      </div>
+      </section>
     </>
   );
 };

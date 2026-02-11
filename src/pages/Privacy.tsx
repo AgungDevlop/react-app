@@ -6,20 +6,20 @@ const Privacy = () => {
   return (
     <>
       <SEO 
-        title="Privacy Policy" 
-        description="AgungDev's Privacy Policy regarding data collection and security."
+        title="Privacy Policy | AgungDev" 
+        description="Kebijakan privasi AgungDev mengenai pengumpulan data, keamanan, dan penggunaan informasi pengguna."
         url="https://agungwandev.com/privacy"
       />
-      <div className="max-w-4xl mx-auto px-4">
+      <section className="max-w-4xl mx-auto px-4" aria-labelledby="privacy-heading">
         <div className="bg-black/50 backdrop-blur-xl border border-white/10 p-8 md:p-12 rounded-3xl shadow-2xl relative overflow-hidden">
           <div className="absolute top-0 right-0 w-64 h-64 bg-cyan-500/10 blur-[100px] rounded-full pointer-events-none"></div>
           
           <div className="flex items-center gap-6 mb-10 border-b border-white/10 pb-8 relative z-10">
             <div className="w-16 h-16 rounded-2xl bg-cyan-500/20 flex items-center justify-center border border-cyan-500/30 shadow-[0_0_15px_rgba(6,182,212,0.3)]">
-              <FontAwesomeIcon icon={faShieldAlt} className="text-3xl text-cyan-400" />
+              <FontAwesomeIcon icon={faShieldAlt} className="text-3xl text-cyan-400" aria-hidden="true" />
             </div>
             <div>
-              <h1 className="text-3xl md:text-4xl font-bold text-white mb-2">Privacy Policy</h1>
+              <h1 id="privacy-heading" className="text-3xl md:text-4xl font-bold text-white mb-2">Privacy Policy</h1>
               <p className="text-slate-400">Transparansi dan keamanan data Anda di AgungDev.</p>
             </div>
           </div>
@@ -38,24 +38,24 @@ const Privacy = () => {
             </Section>
           </div>
           
-          <div className="mt-12 pt-6 border-t border-white/10 flex justify-between items-center text-xs text-slate-500 font-mono">
+          <footer className="mt-12 pt-6 border-t border-white/10 flex justify-between items-center text-xs text-slate-500 font-mono">
             <span>AgungDev Security Protocol</span>
             <span>Last updated: {new Date().getFullYear()}</span>
-          </div>
+          </footer>
         </div>
-      </div>
+      </section>
     </>
   );
 };
 
 const Section = ({ icon, title, children }: any) => (
-  <div className="bg-white/5 p-6 rounded-xl border border-white/5 hover:border-cyan-500/20 transition-colors">
+  <article className="bg-white/5 p-6 rounded-xl border border-white/5 hover:border-cyan-500/20 transition-colors">
     <h2 className="flex items-center gap-3 text-lg font-bold text-white mb-3">
-        <FontAwesomeIcon icon={icon} className="text-cyan-500 text-sm" />
+        <FontAwesomeIcon icon={icon} className="text-cyan-500 text-sm" aria-hidden="true" />
         {title}
     </h2>
     <p className="text-slate-300 text-sm leading-relaxed pl-7">{children}</p>
-  </div>
+  </article>
 );
 
 export default Privacy;

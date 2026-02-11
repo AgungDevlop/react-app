@@ -6,16 +6,16 @@ export const Education = () => {
   return (
     <>
       <SEO 
-        title="Education" 
-        description="AgungDev's academic journey from elementary school to university."
+        title="Education | AgungDev" 
+        description="Perjalanan akademik AgungDev dari sekolah dasar hingga perguruan tinggi di bidang Teknologi Informasi."
         url="https://agungwandev.com/education"
       />
-      <div className="max-w-5xl mx-auto px-4">
-        <h2 className="text-4xl font-bold text-center mb-16">
+      <section className="max-w-5xl mx-auto px-4" aria-labelledby="edu-heading">
+        <h1 id="edu-heading" className="text-4xl font-bold text-center mb-16">
           <span className="bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 to-purple-500 drop-shadow-sm">
             Academic Journey
           </span>
-        </h2>
+        </h1>
         
         <div className="relative space-y-12">
           <div className="absolute left-5 md:left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-transparent via-cyan-500/50 to-transparent -translate-x-1/2 shadow-[0_0_10px_#06b6d4]"></div>
@@ -58,8 +58,11 @@ export const Education = () => {
               <div className="absolute inset-0 bg-cyan-500 blur-xl opacity-20 rounded-full"></div>
               <img 
               src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS7rtB-aUhM-a9-CbhZUMWywfyOTGeDKwfogf9z8dQNPiTwOBL528PGBx0&s=10" 
-              alt="Campus Logo" 
-              className="relative w-24 h-24 rounded-2xl object-cover border-2 border-white/10 shadow-2xl" 
+              alt="Logo INSTIKI" 
+              width="96"
+              height="96"
+              className="relative w-24 h-24 rounded-2xl object-cover border-2 border-white/10 shadow-2xl"
+              loading="lazy" 
               />
           </div>
           <div className="text-center md:text-left">
@@ -69,27 +72,27 @@ export const Education = () => {
             </p>
           </div>
         </div>
-      </div>
+      </section>
     </>
   );
 };
 
 const TimelineItem = ({ icon, year, title, subtitle, desc }: any) => (
-  <div className={`relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse md:even:flex-row group`}>
+  <article className={`relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse md:even:flex-row group`}>
     <div className="absolute left-5 md:left-1/2 -translate-x-1/2 w-12 h-12 rounded-full border-2 border-cyan-500/30 bg-black shadow-[0_0_15px_rgba(6,182,212,0.5)] z-10 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-      <FontAwesomeIcon icon={icon} className="text-cyan-400 text-lg drop-shadow-[0_0_5px_rgba(6,182,212,0.8)]" />
+      <FontAwesomeIcon icon={icon} className="text-cyan-400 text-lg drop-shadow-[0_0_5px_rgba(6,182,212,0.8)]" aria-hidden="true" />
     </div>
     
     <div className="ml-16 md:ml-0 w-full md:w-[calc(50%-3rem)] p-1 rounded-2xl bg-gradient-to-br from-white/10 to-transparent">
         <div className="bg-black/60 backdrop-blur-xl border border-white/5 p-6 rounded-xl hover:bg-black/80 transition-all duration-300">
             <div className="flex items-center gap-2 text-cyan-400 text-xs font-bold uppercase tracking-widest mb-3">
-                <FontAwesomeIcon icon={faCalendarAlt} />
+                <FontAwesomeIcon icon={faCalendarAlt} aria-hidden="true" />
                 <span className="bg-cyan-900/30 px-2 py-0.5 rounded border border-cyan-500/20">{year}</span>
             </div>
-            <h3 className="text-xl font-bold text-white mb-1 group-hover:text-cyan-300 transition-colors">{title}</h3>
+            <h2 className="text-xl font-bold text-white mb-1 group-hover:text-cyan-300 transition-colors">{title}</h2>
             <div className="text-purple-400 font-medium mb-3">{subtitle}</div>
             <p className="text-slate-400 text-sm leading-relaxed border-t border-white/5 pt-3">{desc}</p>
         </div>
     </div>
-  </div>
+  </article>
 );

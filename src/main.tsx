@@ -15,6 +15,12 @@ import { Testimonials } from "./pages/Testimonials.tsx";
 import Privacy from "./pages/Privacy.tsx";
 import NotFound from "./pages/NotFound.tsx";
 
+const currentPath = window.location.pathname;
+if (currentPath.endsWith("index.html")) {
+  const newPath = currentPath.replace(/index\.html$/, "") || "/";
+  window.history.replaceState({}, "", newPath);
+}
+
 const router = createBrowserRouter([
   {
     path: "/",

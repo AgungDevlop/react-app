@@ -129,8 +129,6 @@ export default defineConfig({
 
         fs.writeFileSync(resolve(outDir, 'sitemap.xml'), sitemap);
         fs.writeFileSync(resolve(outDir, 'robots.txt'), `User-agent: *\nAllow: /\nSitemap: ${baseURL}/sitemap.xml`);
-        
-        console.log('✅ Static Routes & SEO Tags Generated Successfully!');
       }
     }
   ],
