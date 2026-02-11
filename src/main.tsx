@@ -4,7 +4,7 @@ import "./index.css";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { HelmetProvider } from "react-helmet-async";
 
-import Layout from "./Layout/Layout.tsx"; // Pastikan import Layout, BUKAN App
+import Layout from "./Layout/Layout.tsx";
 import { Home } from "./pages/Home.tsx";
 import { Contact } from "./pages/Contact.tsx";
 import { Skills } from "./pages/Skills.tsx";
@@ -13,11 +13,12 @@ import { Projects } from "./pages/Projects.tsx";
 import { Education } from "./pages/Education.tsx";
 import { Testimonials } from "./pages/Testimonials.tsx";
 import Privacy from "./pages/Privacy.tsx";
+import NotFound from "./pages/NotFound.tsx";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Layout />, // Layout dipanggil langsung di sini
+    element: <Layout />,
     children: [
       { index: true, element: <Home /> },
       { path: "contact", element: <Contact /> },
@@ -27,16 +28,14 @@ const router = createBrowserRouter([
       { path: "education", element: <Education /> },
       { path: "testimonials", element: <Testimonials /> },
       { path: "privacy", element: <Privacy /> },
+      { path: "*", element: <NotFound /> },
     ],
   },
 ]);
 
-// Context kosong untuk HelmetProvider
-const helmetContext = {};
-
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
-    <HelmetProvider context={helmetContext}>
+    <HelmetProvider>
       <RouterProvider router={router} />
     </HelmetProvider>
   </React.StrictMode>

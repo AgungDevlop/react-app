@@ -27,11 +27,17 @@ jobs:
           node-version: '20'
           cache: 'npm'
 
+      # Pastikan file package-lock.json ada di repo Anda
       - name: Install dependencies
         run: npm ci
 
+      # Ini akan menjalankan Vite Build + Script SEO Generator Anda
       - name: Build project
         run: npm run build
+
+      # PENTING: Matikan Jekyll agar file _assets atau folder routing tidak diabaikan
+      - name: Disable Jekyll processing
+        run: touch dist/.nojekyll
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
