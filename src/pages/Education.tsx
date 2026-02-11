@@ -1,68 +1,76 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGraduationCap, faSchool, faCalendarAlt, faBook } from '@fortawesome/free-solid-svg-icons';
+import { SEO } from "../components/SEO";
 
 export const Education = () => {
   return (
-    <div className="max-w-5xl mx-auto px-4">
-      <h2 className="text-4xl font-bold text-center mb-16">
-        <span className="bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 to-purple-500 drop-shadow-sm">
-          Academic Journey
-        </span>
-      </h2>
-      
-      <div className="relative space-y-12">
-        <div className="absolute left-5 md:left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-transparent via-cyan-500/50 to-transparent -translate-x-1/2 shadow-[0_0_10px_#06b6d4]"></div>
+    <>
+      <SEO 
+        title="Education" 
+        description="AgungDev's academic journey from elementary school to university."
+        url="https://agungwandev.com/education"
+      />
+      <div className="max-w-5xl mx-auto px-4">
+        <h2 className="text-4xl font-bold text-center mb-16">
+          <span className="bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 to-purple-500 drop-shadow-sm">
+            Academic Journey
+          </span>
+        </h2>
         
-        <TimelineItem 
-          icon={faGraduationCap}
-          year="Present"
-          title="Institut Bisnis dan Teknologi Indonesia"
-          subtitle="Teknologi Informasi"
-          desc="Mengembangkan pemahaman mendalam tentang rekayasa perangkat lunak, sistem basis data, dan algoritma modern."
-        />
+        <div className="relative space-y-12">
+          <div className="absolute left-5 md:left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-transparent via-cyan-500/50 to-transparent -translate-x-1/2 shadow-[0_0_10px_#06b6d4]"></div>
+          
+          <TimelineItem 
+            icon={faGraduationCap}
+            year="Present"
+            title="Institut Bisnis dan Teknologi Indonesia"
+            subtitle="Teknologi Informasi"
+            desc="Mengembangkan pemahaman mendalam tentang rekayasa perangkat lunak, sistem basis data, dan algoritma modern."
+          />
 
-        <TimelineItem 
-          icon={faSchool}
-          year="2020 - 2023"
-          title="SMK N 1 Seririt"
-          subtitle="Akuntansi"
-          desc="Membangun dasar logika, manajemen data, dan ketelitian yang kuat yang kini diterapkan dalam pemrograman."
-        />
-        
-        <TimelineItem 
-          icon={faBook}
-          year="2017 - 2020"
-          title="SMP N 4 Seririt"
-          subtitle="Pendidikan Menengah Pertama"
-          desc="Masa pembentukan minat awal pada dunia teknologi dan logika pemecahan masalah."
-        />
+          <TimelineItem 
+            icon={faSchool}
+            year="2020 - 2023"
+            title="SMK N 1 Seririt"
+            subtitle="Akuntansi"
+            desc="Membangun dasar logika, manajemen data, dan ketelitian yang kuat yang kini diterapkan dalam pemrograman."
+          />
+          
+          <TimelineItem 
+            icon={faBook}
+            year="2017 - 2020"
+            title="SMP N 4 Seririt"
+            subtitle="Pendidikan Menengah Pertama"
+            desc="Masa pembentukan minat awal pada dunia teknologi dan logika pemecahan masalah."
+          />
 
-        <TimelineItem 
-          icon={faBook}
-          year="2011 - 2017"
-          title="SD N 5 Lokapaksa"
-          subtitle="Pendidikan Dasar"
-          desc="Meletakkan fondasi pengetahuan dasar serta kemampuan belajar yang esensial untuk jenjang selanjutnya."
-        />
-      </div>
-
-      <div className="mt-20 p-8 bg-black/40 border border-white/10 rounded-3xl backdrop-blur-md flex flex-col md:flex-row items-center gap-8 hover:border-cyan-500/30 transition-all duration-500">
-        <div className="relative">
-            <div className="absolute inset-0 bg-cyan-500 blur-xl opacity-20 rounded-full"></div>
-            <img 
-            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS7rtB-aUhM-a9-CbhZUMWywfyOTGeDKwfogf9z8dQNPiTwOBL528PGBx0&s=10" 
-            alt="Campus Logo" 
-            className="relative w-24 h-24 rounded-2xl object-cover border-2 border-white/10 shadow-2xl" 
-            />
+          <TimelineItem 
+            icon={faBook}
+            year="2011 - 2017"
+            title="SD N 5 Lokapaksa"
+            subtitle="Pendidikan Dasar"
+            desc="Meletakkan fondasi pengetahuan dasar serta kemampuan belajar yang esensial untuk jenjang selanjutnya."
+          />
         </div>
-        <div className="text-center md:text-left">
-          <h3 className="text-2xl font-bold text-white mb-2">INSTIKI</h3>
-          <p className="text-slate-300 leading-relaxed">
-            Kampus teknologi terbaik di Bali. Tempat saya mengasah skill coding, berkolaborasi dalam tim, dan membangun networking profesional.
-          </p>
+
+        <div className="mt-20 p-8 bg-black/40 border border-white/10 rounded-3xl backdrop-blur-md flex flex-col md:flex-row items-center gap-8 hover:border-cyan-500/30 transition-all duration-500">
+          <div className="relative">
+              <div className="absolute inset-0 bg-cyan-500 blur-xl opacity-20 rounded-full"></div>
+              <img 
+              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS7rtB-aUhM-a9-CbhZUMWywfyOTGeDKwfogf9z8dQNPiTwOBL528PGBx0&s=10" 
+              alt="Campus Logo" 
+              className="relative w-24 h-24 rounded-2xl object-cover border-2 border-white/10 shadow-2xl" 
+              />
+          </div>
+          <div className="text-center md:text-left">
+            <h3 className="text-2xl font-bold text-white mb-2">INSTIKI</h3>
+            <p className="text-slate-300 leading-relaxed">
+              Kampus teknologi terbaik di Bali. Tempat saya mengasah skill coding, berkolaborasi dalam tim, dan membangun networking profesional.
+            </p>
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

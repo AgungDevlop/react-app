@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo, useRef } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, Outlet } from "react-router-dom";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { Stars, Float, PerspectiveCamera } from "@react-three/drei";
 import * as THREE from "three";
@@ -219,7 +219,7 @@ const InstallPWA = () => {
   );
 };
 
-const Layout = ({ children }: { children: React.ReactNode }) => {
+const Layout = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
@@ -278,7 +278,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
       </div>
       <main className="relative z-10 container mx-auto px-6 pt-32 pb-20 min-h-[85vh]">
         <div className="animate-fade-in-up">
-          {children}
+          <Outlet />
         </div>
       </main>
       <footer className="relative z-10 border-t border-white/5 bg-black/30 backdrop-blur-sm mt-auto">

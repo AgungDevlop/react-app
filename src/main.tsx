@@ -1,61 +1,43 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import App from "./App.tsx";
 import "./index.css";
-
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import { HelmetProvider } from "react-helmet-async";
+
+import Layout from "./Layout/Layout.tsx"; // Pastikan import Layout, BUKAN App
 import { Home } from "./pages/Home.tsx";
 import { Contact } from "./pages/Contact.tsx";
-import { Skills } from "./pages/Skills.tsx"; // Import the Skills component
-import { Hobbies } from "./pages/Hobbies.tsx"; // Import the Hobbies component
-import { Projects } from "./pages/Projects.tsx"; // Import the Projects component
-import { Education } from "./pages/Education.tsx"; // Import the Education component
-import { Testimonials } from "./pages/Testimonials.tsx"; // Import the Testimonials component
-import Privacy from "./pages/Privacy.tsx"; // Import the Privacy component
+import { Skills } from "./pages/Skills.tsx";
+import { Hobbies } from "./pages/Hobbies.tsx";
+import { Projects } from "./pages/Projects.tsx";
+import { Education } from "./pages/Education.tsx";
+import { Testimonials } from "./pages/Testimonials.tsx";
+import Privacy from "./pages/Privacy.tsx";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <App />,
+    element: <Layout />, // Layout dipanggil langsung di sini
     children: [
-      {
-        index: true, // Menggunakan index agar Home menjadi rute default
-        element: <Home />,
-      },
-      {
-        path: "contact",
-        element: <Contact />,
-      },
-      {
-        path: "skills",
-        element: <Skills />, // Add Skills route
-      },
-      {
-        path: "hobbies",
-        element: <Hobbies />, // Add Hobbies route
-      },
-      {
-        path: "projects",
-        element: <Projects />, // Add Projects route
-      },
-      {
-        path: "education",
-        element: <Education />, // Add Education route
-      },
-      {
-        path: "testimonials",
-        element: <Testimonials />, // Add Testimonials route
-      },
-      {
-        path: "privacy",
-        element: <Privacy />, // Add Privacy route
-      },
+      { index: true, element: <Home /> },
+      { path: "contact", element: <Contact /> },
+      { path: "skills", element: <Skills /> },
+      { path: "hobbies", element: <Hobbies /> },
+      { path: "projects", element: <Projects /> },
+      { path: "education", element: <Education /> },
+      { path: "testimonials", element: <Testimonials /> },
+      { path: "privacy", element: <Privacy /> },
     ],
   },
 ]);
 
+// Context kosong untuk HelmetProvider
+const helmetContext = {};
+
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <HelmetProvider context={helmetContext}>
+      <RouterProvider router={router} />
+    </HelmetProvider>
   </React.StrictMode>
 );
