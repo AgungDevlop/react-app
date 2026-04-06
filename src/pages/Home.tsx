@@ -37,7 +37,7 @@ export const Home = () => {
           <div className="absolute -inset-1 bg-gradient-to-r from-cyan-500 via-purple-500 to-pink-500 rounded-full blur-md opacity-75 group-hover:opacity-100 transition duration-1000 group-hover:duration-200 animate-tilt"></div>
           <div className="relative w-44 h-44 rounded-full p-1 bg-black/50 backdrop-blur-sm overflow-hidden ring-2 ring-white/10">
               <img
-              src="/177276179262.png"
+              src="/1772761792621.png"
               alt="Foto Profil AgungDev"
               width="176"
               height="176"
